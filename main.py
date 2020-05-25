@@ -11,5 +11,6 @@ with the items."""
 
 if __name__ == '__main__':
     # Prints all tokenized words
-    nlp_handler = nlp.NLPHandler(paragraph)
-    print(nlp_handler.get_tokens())
+    nlp_handler = nlp.NLPHandler()
+    # print(nlp_handler.get_tokens())
+    print(nlp_handler.get_words_of_sentences(paragraph))
