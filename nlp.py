@@ -5,6 +5,7 @@ class NLPHandler:
     def __init__(self):
         # Download all nltk data
         nltk.download('all')
+        return
 
     def get_sentences(self, paragraph):
         sentences = [t for t in nltk.sent_tokenize(paragraph)]
