@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 settings.json
+
+#hyunsoo/Testcode ignore
+Testcode/
