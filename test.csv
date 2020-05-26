@@ -1,0 +1,4 @@
+﻿src,tar
+The customer does checkout.,customer -- (checkout)
+The checkouts require payment.,(checkout) .> (payment) : include
+Help extends checkout.,(help) .> (checkout) : extends
