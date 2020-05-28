@@ -1,5 +1,5 @@
-# Opensource_PlantUml
-Opensource_PlantUml team_project
+# Text-to-UML: TTUM
+자연어 처리 및 딥러닝을 이용하여 자연어 문단을 UML 다이어그램으로 변환시켜주는 프로그램
 
 ## 파일 및 폴더 설명
 ### jupyter 폴더
