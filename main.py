@@ -1,3 +1,5 @@
+import usecase_model
+
 # excerpted from software engineering Ch.6 Use case page 3
 # need to take out actor, scenario, use case
 paragraph = """A customer arrives at a checkout with items to purchase. The 
@@ -8,9 +10,7 @@ inventory. The customer receives a receipt from the system and then leaves
 with the items."""
 
 if __name__ == '__main__':
-    # Prints all tokenized words
-    # nlp_handler = nlp.NLPHandler()
-    # print(nlp_handler.get_tokens())
-    # print(nlp_handler.get_words_of_sentences(paragraph))
-    pass
-
+    model = usecase_model.Model()
+    # model.train(10)
+    model.restore_checkpoint()
+    model.translate(u'customer does checkout')
