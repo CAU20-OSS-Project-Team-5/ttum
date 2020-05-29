@@ -10,7 +10,16 @@ inventory. The customer receives a receipt from the system and then leaves
 with the items."""
 
 if __name__ == '__main__':
-    model = usecase_model.Model()
-    # model.train(10)
-    model.restore_checkpoint()
-    model.translate(u'customer does checkout')
+    # model = usecase_model.Model(require_train=True, epochs=1)
+    try:
+        model = usecase_model.Model()
+        model.train(5)
+        model.restore_checkpoint()
+        model.translate(u'checkout .')
+    except (AttributeError, TypeError) as e:
+        pass
+
+    print('dd')
+
+    while True:
+        pass

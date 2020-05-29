@@ -10,7 +10,7 @@ import os
 import io
 import time
 
-path_to_file = "train.csv"
+path_to_file = "usecase_data/train.csv"
 
 
 class Model():
@@ -45,10 +45,10 @@ class Model():
         BUFFER_SIZE = len(input_tensor_train)
         self.BATCH_SIZE = 64
         self.steps_per_epoch = len(input_tensor_train) // self.BATCH_SIZE
-        embedding_dim = 256
+        self.embedding_dim = 256
         self.units = 1024
-        vocab_inp_size = len(self.inp_lang.word_index) + 1
-        vocab_tar_size = len(self.targ_lang.word_index) + 1
+        self.vocab_inp_size = len(self.inp_lang.word_index) + 1
+        self.vocab_tar_size = len(self.targ_lang.word_index) + 1
 
         self.dataset = tf.data.Dataset.from_tensor_slices((input_tensor_train, target_tensor_train)).shuffle(
             BUFFER_SIZE)
@@ -57,7 +57,7 @@ class Model():
         example_input_batch, example_target_batch = next(iter(self.dataset))
         print(example_input_batch.shape, example_target_batch.shape)
 
-        self.encoder = Encoder(vocab_inp_size, embedding_dim, self.units, self.BATCH_SIZE)
+        self.encoder = Encoder(self.vocab_inp_size, self.embedding_dim, self.units, self.BATCH_SIZE)
 
         # sample input
         # Create encoder
@@ -73,7 +73,7 @@ class Model():
         print("Attention weights shape: (batch_size, sequence_length, 1) {}".format(attention_weights.shape))
 
         # Create decoder
-        self.decoder = Decoder(vocab_tar_size, embedding_dim, self.units, self.BATCH_SIZE)
+        self.decoder = Decoder(self.vocab_tar_size, self.embedding_dim, self.units, self.BATCH_SIZE)
 
         sample_decoder_output, _, _ = self.decoder(tf.random.uniform((self.BATCH_SIZE, 1)),
                                                    sample_hidden, sample_output)
