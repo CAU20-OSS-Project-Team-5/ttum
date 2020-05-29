@@ -130,3 +130,6 @@ dmypy.json
 
 # Checkpoints for tensorflow models
 training_checkpoints/
+
+# IntelliJ Files
+.idea/
