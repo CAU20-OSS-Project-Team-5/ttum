@@ -239,7 +239,7 @@ async def filewrite():
     data+="rectangle checkout {\n"
     for str in list:
         data+=str
-    data+="}"
+    data+="}\n"
     data+="@enduml"
     f.write(data) 
     f.close()
