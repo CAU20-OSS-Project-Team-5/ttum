@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-
+import asyncio
 import base64
 import string
 from argparse import ArgumentParser
@@ -218,13 +218,44 @@ def _build_parser():
                         help='server to generate from, defaults to "http://www.plantuml.com/plantuml/img/"')
     return parser
 
+async def filewrite():
+    list=[]
+    actor=[]
+    string=input("문자열을 입력하세요.")
+    while(string!="end"):
+        string+="\n"
+
+        if 'actor' in string:
+            actor.append(string)
+        else:
+            list.append(string)
+        string=input("문자열을 입력하세요")
+    f=open("plantuml.txt",'w')
+    data="@startuml\n"
+    data+="left to right direction\n"
+    data+="skinparam packageStyle rectangle\n"
+    for acts in actor:
+        data+=acts
+    data+="rectangle checkout {\n"
+    for str in list:
+        data+=str
+    data+="}"
+    data+="@enduml"
+    f.write(data) 
+    f.close()
+    await asyncio.sleep(2.0)
+
+async def start():
+    await filewrite()
+    files={'filename':['plantuml.txt'],'out':'','server':'http://www.plantuml.com/plantuml/img/'}
+    pl = PlantUML(files['server'])
+    print(list(map(lambda filename: {'filename': filename,
+                                'gen_success': pl.processes_file(filename, directory=files['out'])}, files['filename'])))
 
 def main():
-    args = _build_parser().parse_args()
-    pl = PlantUML(args.server)
-    print(list(map(lambda filename: {'filename': filename,
-                                'gen_success': pl.processes_file(filename, directory=args.out)}, args.files)))
-
+    loop=asyncio.get_event_loop()
+    loop.run_until_complete(start())
+    loop.close()
 
 if __name__ == '__main__':
     main()
