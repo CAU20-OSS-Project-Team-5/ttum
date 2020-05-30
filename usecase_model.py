@@ -287,13 +287,18 @@ class Model():
         plt.show()
 
     def translate(self, sentence):
-        result, sentence, attention_plot = self.evaluate(sentence)
+        try:
+            result, sentence, attention_plot = self.evaluate(sentence)
 
-        print('Input: %s' % (sentence))
-        print('Predicted translation: {}'.format(result))
+            # print('Input: %s' % (sentence))
+            # print('Predicted translation: {}'.format(result))
 
-        attention_plot = attention_plot[:len(result.split(' ')), :len(sentence.split(' '))]
-        self.plot_attention(attention_plot, sentence.split(' '), result.split(' '))
+            attention_plot = attention_plot[:len(result.split(' ')), :len(sentence.split(' '))]
+            self.plot_attention(attention_plot, sentence.split(' '), result.split(' '))
+
+            return format(result)
+        except KeyError as e:  # KeyError when the vocabulary in the sentence is not defined
+            return ""
 
     # Restore the latest checkpoint and test
     # restoring the latest checkpoint in checkpoint_dir
