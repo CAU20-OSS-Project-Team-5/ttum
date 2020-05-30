@@ -118,7 +118,7 @@ class NLPHandler:
         :return: a PlantUML-usecase-diagram text to be inserted into actor definitions
         """
         # Get POS-tagged subjects from paragraph
-        pos_subjects = self.get_subjects_from_paragraph_except_pronouns(example_paragraph)
+        pos_subjects = self.get_subjects_from_paragraph_except_pronouns(paragraph)
 
         # Remove POS-tags from subject list
         subjects = self.get_pos_removed_word_list(pos_subjects)
