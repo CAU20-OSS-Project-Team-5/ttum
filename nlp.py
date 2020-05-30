@@ -1,5 +1,6 @@
 import nltk
 import spacy
+import string
 
 
 class NLPHandler:
@@ -129,6 +130,29 @@ class NLPHandler:
         actor_appended_list = ['actor ' + item for item in actors]  # Append "actor " to each actor texts
         plantuml_ready_actor_text = self.convert_list_to_lines(actor_appended_list)  # Convert to a whole paragraph
         return plantuml_ready_actor_text
+
+    def remove_punctuations(self, s):
+        """Remove punctuations including ',', '.', ... from string s
+
+        :param s: the string to remove punctuations from
+        :return: the punctuation-removed string
+        """
+        text = s.translate(str.maketrans('', '', string.punctuation))
+        return text
+
+    def remove_start_end_from_translated_text(self, s):
+        """Remove "<start> " and " <end>" from start and end of translated text s
+
+        :param s: the translated text that may contain "<start> " and " <end>"
+        :return: the translated text where "<start> " and " <end>" are removed
+        """
+        if s.endswith(" <end>"):
+            s = s[:-6]
+
+        if s.startswith("<start> "):
+            s = s[8:]
+
+        return s
 
 
 if __name__ == '__main__':
