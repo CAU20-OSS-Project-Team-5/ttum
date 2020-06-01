@@ -1,38 +1,10 @@
-# Text-to-UML: TTUM
-자연어 처리 및 딥러닝을 이용하여 자연어 문단을 UML 다이어그램으로 변환시켜주는 프로그램
-
-## 파일 및 폴더 설명
-### jupyter 폴더
-- Jupyter notebook 파일들이 담겨있는 폴더
-- Model test 및 학습 용도로 사용하면 됨
-
-### main.py
-- 메인 함수가 담겨있음
-- usecase_model의 Model 클래스 생성자를 호출
-- Model 클래스의 train 함수에 매개변수로 epoch 값을 넘기고, 해당 횟수만큼 학습
-- Model 클래스의 translate 함수로 사용자 입력을 번역함
-
-### nlp.py
-- nltk 패키지를 불러와서 NLPHandler 클래스를 불러와 자연어 처리 관련 함수를 사용할 수 있음
-- 생성자가 nltk.download('all')을 실행하여 nltk data를 다운받음
-    - 다운받은 상태면 다운받지는 않지만 확인 메세지들이 콘솔창에 출력됨
-    - 추후에 미리 체크해서 다운 받을 필요가 없으면 출력하지 않도록 할 예정
-
-### usecase_model.py
-- RNN의 파생 모델인 LSTM 모델이 적용된 Tensorflow model
-- seq2seq 기법 및 교사 강요 사용
-- 현재 생성자를 통해 동작하며, `main.py`에서 호출
-- 입력으로 train.csv를 받아서 LSTM 모델을 학습시킴
-
-### packagelist.txt
-- 아나콘다의 conda install을 위한 패키지 정보들
-
-### 데이터 파일 (.csv)
-#### train.csv
-- Tensorflow를 이용해 학습시킬 데이터가 담긴 csv 파일
-- 이 파일에 영어-PlantUML 데이터를 추가해야 함
-- 오픈소스의 의의가 됨
-
-#### test.csv
-- 학습되지 않은 영어-PlantUML 데이터
-- 정확도 측정을 위해 사용
+# django 를 이용한 program backend
+## django 설치 후 가상환경 위에 django, python 설치
+- cmd 해당 폴더로 이동 후 myvenv\Scripts\activate 명령어로 가상환경 실행
+- cd mysite -> py manage.py runserver 127.0.0.1:8080 으로 로컬 서버 사용
+- 현재 127.0.0.1:8080/imports가 초기 화면이며 이후 수정 계획
+- 현재 프론트앤드 작업은 되지 않았으며, 단순히 텍스트를 입력하고 Convert 버튼을 누르면 입력한 text가 서버에 .txt파일 형태로 저장됨. 전달된 txt는 Catch에서 GET하여 
+- NL -> PlantUML -> ImgFile 로의 변환을 거치고 입력한 txt(nl)와 이미지를 출력하면 됨 
+- 현재 Catch함수에서 변환 과정을 생략하고 임의의 이미지 파일을 가져와 출력하는데 Pillow, IPython 패키지를 사용함.
+- 이건 바꾸다보면 바뀔수도
+- 아직 html에서 python형태의 이미지파일을 출력못시키고있음.
