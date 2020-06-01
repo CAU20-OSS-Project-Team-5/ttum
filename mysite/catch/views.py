@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from PIL import Image
-from IPython.display import Image
 
 # Create your views here.
 
