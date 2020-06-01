@@ -8,7 +8,6 @@ from argparse import ArgumentParser
 from io import open
 from os import environ, path, makedirs
 from zlib import compress
-import time
 import httplib2
 import six
 from six.moves.urllib.parse import urlencode
@@ -24,9 +23,8 @@ __version_string__ = '.'.join(str(x) for x in __version__)
 __author__ = 'Doug Napoleone, Samuel Marks, Eric Frederich'
 __email__ = 'doug.napoleone+plantuml@gmail.com'
 
-
 plantuml_alphabet = string.digits + string.ascii_uppercase + string.ascii_lowercase + '-_'
-base64_alphabet   = string.ascii_uppercase + string.ascii_lowercase + string.digits + '+/'
+base64_alphabet = string.ascii_uppercase + string.ascii_lowercase + string.digits + '+/'
 b64_to_plantuml = maketrans(base64_alphabet.encode('utf-8'), plantuml_alphabet.encode('utf-8'))
 
 
@@ -58,7 +56,7 @@ class PlantUMLHTTPError(PlantUMLConnectionError):
         super(PlantUMLHTTPError, self).__init__(message, *args, **kwdargs)
 
 
-def deflate_and_encode(plantuml_text):  #이미지파일 링크 decode하는곳
+def deflate_and_encode(plantuml_text):  # 이미지파일 링크 decode하는곳
     """zlib compress the plantuml text and encode it for the plantuml server.
     """
     zlibbed_str = compress(plantuml_text.encode('utf-8'))
@@ -206,50 +204,3 @@ class PlantUML(object):
         out.write(content)
         out.close()
         return True
-
-def test():
-    str="actor hyunsoo\nactor jinsoo\n asndkasjlndkjsandjksan"
-    filewrite(str)
-
-def filewrite(str):
-    list=[]
-    actor=[]
-    str=str.strip()
-    string=str.split('\n');
-    for i,str in enumerate(string):
-        string[i]=str.strip()+"\n"
-    for str in string:
-        if 'actor' in str:
-            actor.append(str)
-        else:
-            list.append(str)
-    Template_plantuml_txt(actor,list)
-    time.sleep(1.0)
-    return start()  #성공 실패여부 반환 backend에서 성공시 파일보여주고, 실패시 다시 str보내주면 됨.
-
-def Template_plantuml_txt(actor,list):
-    f=open("plantuml.txt",'w')
-    data="@startuml\n"
-    data+="left to right direction\n"
-    data+="skinparam packageStyle rectangle\n"
-    for acts in actor:
-        data+=acts
-    data+="rectangle checkout {\n"
-    for str in list:
-        data+=str
-    data+="}\n"
-    data+="@enduml"
-    f.write(data) 
-    f.close()
-
-def start():
-    files={'filename':['plantuml.txt'],'out':'../Created_plant','server':'http://www.plantuml.com/plantuml/img/'}
-    pl = PlantUML(files['server'])
-    PF=pl.processes_file('plantuml.txt', directory=files['out'])
-    return PF
-
-def main():
-    test() 
-
-if __name__ == '__main__':
-    main()

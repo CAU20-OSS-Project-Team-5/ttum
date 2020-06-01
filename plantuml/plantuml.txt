@@ -1,9 +1,0 @@
-@startuml
-left to right direction
-skinparam packageStyle rectangle
-actor hyunsoo
-actor jinsoo
-rectangle checkout {
-asndkasjlndkjsandjksan
-}
-@enduml

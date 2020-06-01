@@ -1,198 +1,394 @@
-# To read CSV files
-import pandas as pd
+import tensorflow as tf
 
-# To add paddings to the samples
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+from sklearn.model_selection import train_test_split
 
-# To one-hot encode
-from tensorflow.keras.utils import to_categorical
-
-# To train the model
-from tensorflow.keras.layers import Input, LSTM, Embedding, Dense
-from tensorflow.keras.models import Model
-
-# To manipulate data
+import re
 import numpy as np
+import os
+import io
+import time
+
+path_to_file = "usecase_data/train.csv"
 
 
-class UsecaseModel():
+class Model():
     def __init__(self):
-        TRAIN_CSV_PATH = 'train.csv'  # Train data location
-        TEST_CSV_PATH = 'test.csv'  # Test data location
+        en, pu = self.create_dataset(path_to_file, None)
+        print(en[-1])
+        print(pu[-1])
 
-        # Reads from CSV file for training
-        lines = pd.read_csv(self.TRAIN_CSV_PATH, names=['src', 'tar'], sep=',', skiprows=[0])
+        # Limit the size of the dataset to experiment faster (optional)
+        # Try experimenting with the size of that dataset
+        num_examples = 30000
+        input_tensor, target_tensor, self.inp_lang, self.targ_lang = self.load_dataset(path_to_file, num_examples)
 
-        # Determines how many samples to read
-        lines = lines[0:5000]
+        # Calculate max_length of the target tensors
+        self.max_length_targ, self.max_length_inp = target_tensor.shape[1], input_tensor.shape[1]
 
-        # Changes the start and end symbol of target data
-        # \t : start symbol
-        # \n : end symbol
-        lines.tar = lines.tar.apply(lambda x: '\t ' + x + ' \n')
+        # Creating training and validation sets using an 80-20 split
+        input_tensor_train, input_tensor_val, target_tensor_train, target_tensor_val = train_test_split(input_tensor,
+                                                                                                        target_tensor,
+                                                                                                        test_size=0.2)
 
-        # Creates a set of letters for source language - Englsih
-        src_vocab = set()
-        # Reads line by line, character by character
-        for line in lines.src:
-            for char in line:
-                src_vocab.add(char)
+        # Show length
+        print(len(input_tensor_train), len(target_tensor_train), len(input_tensor_val), len(target_tensor_val))
 
-        # Creates a set of letters for target language - PlantUML
-        tar_vocab = set()
-        for line in lines.tar:
-            for char in line:
-                tar_vocab.add(char)
+        print("Input Language; index to word mapping")
+        self.convert(self.inp_lang, input_tensor_train[0])
+        print()
+        print("Target Language; index to word mapping")
+        self.convert(self.targ_lang, target_tensor_train[0])
 
-        src_vocab_size = len(src_vocab) + 1
-        tar_vocab_size = len(tar_vocab) + 1
+        # Create a tf.data dataset
+        BUFFER_SIZE = len(input_tensor_train)
+        self.BATCH_SIZE = 64
+        self.steps_per_epoch = len(input_tensor_train) // self.BATCH_SIZE
+        self.embedding_dim = 256
+        self.units = 1024
+        self.vocab_inp_size = len(self.inp_lang.word_index) + 1
+        self.vocab_tar_size = len(self.targ_lang.word_index) + 1
 
-        # Gives an index for each letter in the set
-        src_to_index = dict([(word, i + 1) for i, word in enumerate(src_vocab)])
-        tar_to_index = dict([(word, i + 1) for i, word in enumerate(tar_vocab)])
+        self.dataset = tf.data.Dataset.from_tensor_slices((input_tensor_train, target_tensor_train)).shuffle(
+            BUFFER_SIZE)
+        self.dataset = self.dataset.batch(self.BATCH_SIZE, drop_remainder=True)
 
-        # Integer-encodes for English sentence samples, which will become the input of encoder
-        encoder_input = []
-        # Read line by line, character by character from input data
-        for line in lines.src:
-            temp_X = []
-            for w in line:
-                temp_X.append(src_to_index[w])  # Encode letter to corresponding integer
-            encoder_input.append(temp_X)
+        example_input_batch, example_target_batch = next(iter(self.dataset))
+        print(example_input_batch.shape, example_target_batch.shape)
 
-        # Integer-encodes for PlantUML sentence samples, which will become the input of decoder
-        decoder_input = []
-        for line in lines.tar:
-            temp_X = []
-            for w in line:
-                temp_X.append(tar_to_index[w])
-            decoder_input.append(temp_X)
-        print(decoder_input[:5])
+        self.encoder = Encoder(self.vocab_inp_size, self.embedding_dim, self.units, self.BATCH_SIZE)
 
-        # Removes '\t' from the very first of true data
-        # to compare them with the predicted data from the decoder later
-        decoder_target = []
-        for line in lines.tar:
-            t = 0
-            temp_X = []
-            for w in line:
-                if t > 0:
-                    temp_X.append(tar_to_index[w])
-                t = t + 1
-            decoder_target.append(temp_X)
-        print(decoder_target[:5])
+        # sample input
+        # Create encoder
+        sample_hidden = self.encoder.initialize_hidden_state()
+        sample_output, sample_hidden = self.encoder(example_input_batch, sample_hidden)
+        print('Encoder output shape: (batch size, sequence length, units) {}'.format(sample_output.shape))
+        print('Encoder Hidden state shape: (batch size, units) {}'.format(sample_hidden.shape))
 
-        # In order to add 'paddings' to English and PlantUML sentences,
-        # let's get the length of the sample with the maximum length from source and target
-        max_src_len = max([len(line) for line in lines.src])
-        max_tar_len = max([len(line) for line in lines.tar])
+        attention_layer = BahdanauAttention(10)
+        attention_result, attention_weights = attention_layer(sample_hidden, sample_output)
 
-        encoder_input = pad_sequences(encoder_input, maxlen=max_src_len, padding='post')
-        decoder_input = pad_sequences(decoder_input, maxlen=max_tar_len, padding='post')
-        decoder_target = pad_sequences(decoder_target, maxlen=max_tar_len, padding='post')
+        print("Attention result shape: (batch size, units) {}".format(attention_result.shape))
+        print("Attention weights shape: (batch_size, sequence_length, 1) {}".format(attention_weights.shape))
 
-        # One-hot-encodes for every data, including true data and input data
-        encoder_input = to_categorical(encoder_input)
-        decoder_input = to_categorical(decoder_input)
-        decoder_target = to_categorical(decoder_target)
+        # Create decoder
+        self.decoder = Decoder(self.vocab_tar_size, self.embedding_dim, self.units, self.BATCH_SIZE)
 
-        # END OF DATA PREPROCESSING
+        sample_decoder_output, _, _ = self.decoder(tf.random.uniform((self.BATCH_SIZE, 1)),
+                                                   sample_hidden, sample_output)
 
-        # Now use seq2seq for training translator using 'teacher forcing'
-        # Uses LSTM (hidden and cell status each)
-        # Defines the inputs and outputs for the encoder
-        encoder_inputs = Input(shape=(None, src_vocab_size))
-        encoder_lstm = LSTM(units=256, return_state=True)
+        print('Decoder output shape: (batch_size, vocab size) {}'.format(sample_decoder_output.shape))
 
-        encoder_outputs, state_h, state_c = encoder_lstm(encoder_inputs)
-        encoder_states = [state_h, state_c]
+        # Define the optimizer and the loss function
+        self.optimizer = tf.keras.optimizers.Adam()
+        self.loss_object = tf.keras.losses.SparseCategoricalCrossentropy(
+            from_logits=True, reduction='none')
 
-        # Defines the inputs and outputs of the decoder
-        decoder_inputs = Input(shape=(None, tar_vocab_size))
-        decoder_lstm = LSTM(units=256, return_sequences=True, return_state=True)
-        decoder_outputs, _, _ = decoder_lstm(decoder_inputs, initial_state=encoder_states)
+        # Checkpoints (Object-based saving)
+        self.checkpoint_dir = './training_checkpoints'
+        self.checkpoint_prefix = os.path.join(self.checkpoint_dir, "ckpt")
+        self.checkpoint = tf.train.Checkpoint(optimizer=self.optimizer,
+                                              encoder=self.encoder,
+                                              decoder=self.decoder)
 
-        # Makes the decoder's first status - hidden status and cell status of the encoder
-        decoder_softmax_layer = Dense(tar_vocab_size, activation='softmax')
-        decoder_outputs = decoder_softmax_layer(decoder_outputs)
+    def preprocess_sentence(self, w, split_on_special_chars=False):
+        # creating a space between a word and the punctuation following it
+        # eg: "he is a boy." => "he is a boy ."
+        # Reference:- https://stackoverflow.com/questions/3645931/python-padding-punctuation-with-white-spaces-keeping-punctuation
+        if split_on_special_chars:
+            w = re.sub(r"([?.!,¿])", r" \1 ", w)
+            w = re.sub(r'[" "]+', " ", w)
 
-        # Finishes creating the model by compiling the model
-        model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
-        model.compile(optimizer="rmsprop", loss="categorical_crossentropy")
+            # replacing everything with space except (a-z, A-Z, ".", "?", "!", ",")
+            w = re.sub(r"[^a-zA-Z?.!,¿]+", " ", w)
 
-        # Trains for 50 epochs
-        model.fit(x=[encoder_input, decoder_input], y=decoder_target, batch_size=64, epochs=50, validation_split=0.2)
+        w = w.strip()
 
-        # Defines the encoder model
-        encoder_model = Model(inputs=encoder_inputs, outputs=encoder_states)
+        #   # adding a start and an end token to the sentence
+        #   # so that the model know when to start and stop predicting.
+        w = '<start> ' + w + ' <end>'
+        return w
 
-        # Constructs the decoder
-        # These are the tensors that store previous status
-        # state_h: hidden state
-        # state_c: cell state
-        decoder_state_input_h = Input(shape=(256,))
-        decoder_state_input_c = Input(shape=(256,))
-        decoder_states_inputs = [decoder_state_input_h, decoder_state_input_c]
-        decoder_outputs, state_h, state_c = decoder_lstm(decoder_inputs, initial_state=decoder_states_inputs)
+    # 1. Remove the accents
+    # 2. Clean the sentences
+    # 3. Return word pairs in the format: [ENGLISH, SPANISH]
+    def create_dataset(self, path, num_examples):
+        # Split each line by '\n'
+        # Skip first line
+        lines = io.open(path, encoding='UTF-8').read().strip().split('\n')[1:]
 
-        # In order to predict the next word in the sentence,
-        # uses initial_state as the previous status
-        # This is implemented in decode_sequence() later
-        decoder_states = [state_h, state_c]
+        # Generate input and output layers
+        word_pairs = []
+        for l in lines[:num_examples]:
+            sentences = l.split(',')
+            input_data = self.preprocess_sentence(sentences[0], split_on_special_chars=True)
+            output_data = self.preprocess_sentence(sentences[1], split_on_special_chars=False)
+            word_pairs.append([input_data, output_data])
 
-        # state_h and state_c don't get discarded, which is different from when training
-        decoder_outputs = decoder_softmax_layer(decoder_outputs)
-        decoder_model = Model(inputs=[decoder_inputs] + decoder_states_inputs,
-                              outputs=[decoder_outputs] + decoder_states)
+        return zip(*word_pairs)
 
-        # Creates index_to_src와 index_to_tar dictionaries
-        # which allows getting a word from an index, instead of an index from a word
-        index_to_src = dict((i, char) for char, i in src_to_index.items())
-        index_to_tar = dict((i, char) for char, i in tar_to_index.items())
+    def tokenize(self, lang):
+        lang_tokenizer = tf.keras.preprocessing.text.Tokenizer(filters='')
+        lang_tokenizer.fit_on_texts(lang)
 
-        def decode_sequence(input_seq):
-            # 입력으로부터 인코더의 상태를 얻음
-            states_value = encoder_model.predict(input_seq)
+        tensor = lang_tokenizer.texts_to_sequences(lang)
 
-            # <SOS>에 해당하는 원-핫 벡터 생성
-            target_seq = np.zeros((1, 1, tar_vocab_size))
-            target_seq[0, 0, tar_to_index['\t']] = 1.
+        tensor = tf.keras.preprocessing.sequence.pad_sequences(tensor, padding='post')
 
-            stop_condition = False
-            decoded_sentence = ""
+        return tensor, lang_tokenizer
 
-            # stop_condition이 True가 될 때까지 루프 반복
-            while not stop_condition:
-                # 이점 시점의 상태 states_value를 현 시점의 초기 상태로 사용
-                output_tokens, h, c = decoder_model.predict([target_seq] + states_value)
+    def load_dataset(self, path, num_examples=None):
+        # creating cleaned input, output pairs
+        inp_lang, targ_lang = self.create_dataset(path, num_examples)
 
-                # 예측 결과를 문자로 변환
-                sampled_token_index = np.argmax(output_tokens[0, -1, :])
-                sampled_char = index_to_tar[sampled_token_index]
+        input_tensor, inp_lang_tokenizer = self.tokenize(inp_lang)
+        target_tensor, targ_lang_tokenizer = self.tokenize(targ_lang)
 
-                # 현재 시점의 예측 문자를 예측 문장에 추가
-                decoded_sentence += sampled_char
+        return input_tensor, target_tensor, inp_lang_tokenizer, targ_lang_tokenizer
 
-                # <eos>에 도달하거나 최대 길이를 넘으면 중단.
-                if (sampled_char == '\n' or
-                        len(decoded_sentence) > max_tar_len - 10):  # TODO: This needs work here - why - 10?
-                    stop_condition = True
+    def convert(self, lang, tensor):
+        for t in tensor:
+            if t != 0:
+                print("%d ----> %s" % (t, lang.index_word[t]))
 
-                # 현재 시점의 예측 결과를 다음 시점의 입력으로 사용하기 위해 저장
-                target_seq = np.zeros((1, 1, tar_vocab_size))
-                target_seq[0, 0, sampled_token_index] = 1.
+    def loss_function(self, real, pred):
+        mask = tf.math.logical_not(tf.math.equal(real, 0))
+        loss_ = self.loss_object(real, pred)
 
-                # 현재 시점의 상태를 다음 시점의 상태로 사용하기 위해 저장
-                states_value = [h, c]
+        mask = tf.cast(mask, dtype=loss_.dtype)
+        loss_ *= mask
 
-            return decoded_sentence
+        return tf.reduce_mean(loss_)
 
-        for seq_index in [3, 50, 100, 300, 1001]:  # 입력 문장의 인덱스
-            input_seq = encoder_input[seq_index: seq_index + 1]
-            decoded_sentence = decode_sequence(input_seq)
-            print(35 * "-")
-            print('Input sentence:', lines.src[seq_index])
-            print('Correct sentence:',
-                  lines.tar[seq_index][1:len(lines.tar[seq_index]) - 1])  # Prints without '\t' and '\n'
-            print('Translated sentence using the machine:',
-                  decoded_sentence[:len(decoded_sentence) - 1])  # Prints without '\n'
+    @tf.function
+    def train_step(self, inp, targ, enc_hidden):
+        loss = 0
+
+        with tf.GradientTape() as tape:
+            enc_output, enc_hidden = self.encoder(inp, enc_hidden)
+
+            dec_hidden = enc_hidden
+
+            dec_input = tf.expand_dims([self.targ_lang.word_index['<start>']] * self.BATCH_SIZE, 1)
+
+            # Teacher forcing - feeding the target as the next input
+            for t in range(1, targ.shape[1]):
+                # passing enc_output to the decoder
+                predictions, dec_hidden, _ = self.decoder(dec_input, dec_hidden, enc_output)
+
+                loss += self.loss_function(targ[:, t], predictions)
+
+                # using teacher forcing
+                dec_input = tf.expand_dims(targ[:, t], 1)
+
+        batch_loss = (loss / int(targ.shape[1]))
+
+        variables = self.encoder.trainable_variables + self.decoder.trainable_variables
+
+        gradients = tape.gradient(loss, variables)
+
+        self.optimizer.apply_gradients(zip(gradients, variables))
+
+        return batch_loss
+
+    # Training
+    # 1. Pass the input through the encoder which return encoder output and the encoder hidden state.
+    # 2. The encoder output, encoder hidden state and the decoder input (which is the start token) is passed to the decoder.
+    # 3. The decoder returns the predictions and the decoder hidden state.
+    # 4. The decoder hidden state is then passed back into the model and the predictions are used to calculate the loss.
+    # 5. Use teacher forcing to decide the next input to the decoder.
+    # 6. Teacher forcing is the technique where the target word is passed as the next input to the decoder.
+    # 7. The final step is to calculate the gradients and apply it to the optimizer and backpropagate.
+    def train(self, epoch):
+        EPOCHS = epoch
+
+        for epoch in range(EPOCHS):
+            start = time.time()
+
+            enc_hidden = self.encoder.initialize_hidden_state()
+            total_loss = 0
+
+            for (batch, (inp, targ)) in enumerate(self.dataset.take(self.steps_per_epoch)):
+                batch_loss = self.train_step(inp, targ, enc_hidden)
+                total_loss += batch_loss
+
+                if batch % 100 == 0:
+                    print('Epoch {} Batch {} Loss {:.4f}'.format(epoch + 1,
+                                                                 batch,
+                                                                 batch_loss.numpy()))
+            # saving (checkpoint) the model every 2 epochs
+            if (epoch + 1) % 2 == 0:
+                self.checkpoint.save(file_prefix=self.checkpoint_prefix)
+
+            print('Epoch {} Loss {:.4f}'.format(epoch + 1,
+                                                total_loss / self.steps_per_epoch))
+            print('Time taken for 1 epoch {} sec\n'.format(time.time() - start))
+
+    # Translate
+    # - The evaluate function is similar to the training loop, except we don't use teacher forcing here. The input to the decoder at each time step is its previous predictions along with the hidden state and the encoder output.
+    # - Stop predicting when the model predicts the end token.
+    # - And store the attention weights for every time step.
+
+    def evaluate(self, sentence):
+        attention_plot = np.zeros((self.max_length_targ, self.max_length_inp))
+
+        sentence = self.preprocess_sentence(sentence)
+
+        inputs = [self.inp_lang.word_index[i] for i in sentence.split(' ')]
+        inputs = tf.keras.preprocessing.sequence.pad_sequences([inputs],
+                                                               maxlen=self.max_length_inp,
+                                                               padding='post')
+        inputs = tf.convert_to_tensor(inputs)
+
+        result = ''
+
+        hidden = [tf.zeros((1, self.units))]
+        enc_out, enc_hidden = self.encoder(inputs, hidden)
+
+        dec_hidden = enc_hidden
+        dec_input = tf.expand_dims([self.targ_lang.word_index['<start>']], 0)
+
+        for t in range(self.max_length_targ):
+            predictions, dec_hidden, attention_weights = self.decoder(dec_input,
+                                                                      dec_hidden,
+                                                                      enc_out)
+
+            # storing the attention weights to plot later on
+            attention_weights = tf.reshape(attention_weights, (-1,))
+            attention_plot[t] = attention_weights.numpy()
+
+            predicted_id = tf.argmax(predictions[0]).numpy()
+
+            result += self.targ_lang.index_word[predicted_id] + ' '
+
+            if self.targ_lang.index_word[predicted_id] == '<end>':
+                return result, sentence, attention_plot
+
+            # the predicted ID is fed back into the model
+            dec_input = tf.expand_dims([predicted_id], 0)
+
+        return result, sentence, attention_plot
+
+    # function for plotting the attention weights
+    def plot_attention(self, attention, sentence, predicted_sentence):
+        fig = plt.figure(figsize=(10, 10))
+        ax = fig.add_subplot(1, 1, 1)
+        ax.matshow(attention, cmap='viridis')
+
+        fontdict = {'fontsize': 14}
+
+        ax.set_xticklabels([''] + sentence, fontdict=fontdict, rotation=90)
+        ax.set_yticklabels([''] + predicted_sentence, fontdict=fontdict)
+
+        ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
+        ax.yaxis.set_major_locator(ticker.MultipleLocator(1))
+
+        plt.show()
+
+    def translate(self, sentence):
+        try:
+            result, sentence, attention_plot = self.evaluate(sentence)
+
+            # print('Input: %s' % (sentence))
+            # print('Predicted translation: {}'.format(result))
+
+            attention_plot = attention_plot[:len(result.split(' ')), :len(sentence.split(' '))]
+            self.plot_attention(attention_plot, sentence.split(' '), result.split(' '))
+
+            return format(result)
+        except KeyError as e:  # KeyError when the vocabulary in the sentence is not defined
+            return ""
+
+    # Restore the latest checkpoint and test
+    # restoring the latest checkpoint in checkpoint_dir
+    def restore_checkpoint(self):
+        self.checkpoint.restore(tf.train.latest_checkpoint(self.checkpoint_dir))
+
+
+# Write the encoder and decoder model
+class Encoder(tf.keras.Model):
+    def __init__(self, vocab_size, embedding_dim, enc_units, batch_sz):
+        super(Encoder, self).__init__()
+        self.batch_sz = batch_sz
+        self.enc_units = enc_units
+        self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
+        self.gru = tf.keras.layers.GRU(self.enc_units,
+                                       return_sequences=True,
+                                       return_state=True,
+                                       recurrent_initializer='glorot_uniform')
+
+    def call(self, x, hidden):
+        x = self.embedding(x)
+        output, state = self.gru(x, initial_state=hidden)
+        return output, state
+
+    def initialize_hidden_state(self):
+        return tf.zeros((self.batch_sz, self.enc_units))
+
+
+class BahdanauAttention(tf.keras.layers.Layer):
+    def __init__(self, units):
+        super(BahdanauAttention, self).__init__()
+        self.W1 = tf.keras.layers.Dense(units)
+        self.W2 = tf.keras.layers.Dense(units)
+        self.V = tf.keras.layers.Dense(1)
+
+    def call(self, query, values):
+        # query hidden state shape == (batch_size, hidden size)
+        # query_with_time_axis shape == (batch_size, 1, hidden size)
+        # values shape == (batch_size, max_len, hidden size)
+        # we are doing this to broadcast addition along the time axis to calculate the score
+        query_with_time_axis = tf.expand_dims(query, 1)
+
+        # score shape == (batch_size, max_length, 1)
+        # we get 1 at the last axis because we are applying score to self.V
+        # the shape of the tensor before applying self.V is (batch_size, max_length, units)
+        score = self.V(tf.nn.tanh(
+            self.W1(query_with_time_axis) + self.W2(values)))
+
+        # attention_weights shape == (batch_size, max_length, 1)
+        attention_weights = tf.nn.softmax(score, axis=1)
+
+        # context_vector shape after sum == (batch_size, hidden_size)
+        context_vector = attention_weights * values
+        context_vector = tf.reduce_sum(context_vector, axis=1)
+
+        return context_vector, attention_weights
+
+
+class Decoder(tf.keras.Model):
+    def __init__(self, vocab_size, embedding_dim, dec_units, batch_sz):
+        super(Decoder, self).__init__()
+        self.batch_sz = batch_sz
+        self.dec_units = dec_units
+        self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
+        self.gru = tf.keras.layers.GRU(self.dec_units,
+                                       return_sequences=True,
+                                       return_state=True,
+                                       recurrent_initializer='glorot_uniform')
+        self.fc = tf.keras.layers.Dense(vocab_size)
+
+        # used for attention
+        self.attention = BahdanauAttention(self.dec_units)
+
+    def call(self, x, hidden, enc_output):
+        # enc_output shape == (batch_size, max_length, hidden_size)
+        context_vector, attention_weights = self.attention(hidden, enc_output)
+
+        # x shape after passing through embedding == (batch_size, 1, embedding_dim)
+        x = self.embedding(x)
+
+        # x shape after concatenation == (batch_size, 1, embedding_dim + hidden_size)
+        x = tf.concat([tf.expand_dims(context_vector, 1), x], axis=-1)
+
+        # passing the concatenated vector to the GRU
+        output, state = self.gru(x)
+
+        # output shape == (batch_size * 1, hidden_size)
+        output = tf.reshape(output, (-1, output.shape[2]))
+
+        # output shape == (batch_size, vocab)
+        x = self.fc(output)
+
+        return x, state, attention_weights
