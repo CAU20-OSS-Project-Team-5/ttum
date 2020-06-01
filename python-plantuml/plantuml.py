@@ -221,11 +221,11 @@ class PlantUML(object):
 
 def test():
     str='actor hyunsoo\nactor minsoo\nminsoo -- (help)'
-    update_uml(str)
+    filewrite(str)
 
-def update_uml(str):
-    list=[]     #actor 이외
-    actor=[]    #actor만
+def filewrite(str):
+    list=[]
+    actor=[]
     str=str.strip()
     string=str.split('\n');
     for i,str in enumerate(string):
@@ -235,19 +235,6 @@ def update_uml(str):
             actor.append(str)
         else:
             list.append(str)
-    Template_plantuml_txt(actor,list)
-
-def filewrite():
-    list=[]
-    actor=[]
-    string=input("문자열을 입력하세요.")
-    while(string!="end"):
-        string+="\n"
-        if 'actor' in string:
-            actor.append(string)
-        else:
-            list.append(string)
-        string=input("문자열을 입력하세요")
     Template_plantuml_txt(actor,list)
 
 def Template_plantuml_txt(actor,list):
