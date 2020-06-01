@@ -1,10 +1,9 @@
 @startuml
-    left to right direction
-    skinparam packageStyle rectangle
-
-    actor hyunsoo
+left to right direction
+skinparam packageStyle rectangle
+actor hyunsoo
 actor minsoo
-actor jinsoo
 rectangle checkout {
+minsoo -- (help)
 }
-    @enduml
+@enduml

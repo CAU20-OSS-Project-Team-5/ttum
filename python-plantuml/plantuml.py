@@ -220,7 +220,7 @@ class PlantUML(object):
 
 
 def test():
-    str='actor hyunsoo\nactor minsoo\nactor jinsoo'
+    str='actor hyunsoo\nactor minsoo\nminsoo -- (help)'
     update_uml(str)
 
 def update_uml(str):
@@ -230,29 +230,12 @@ def update_uml(str):
     string=str.split('\n');
     for i,str in enumerate(string):
         string[i]=str.strip()+"\n"
-    print(string)
     for str in string:
         if 'actor' in str:
             actor.append(str)
         else:
             list.append(str)
-    f=open("plantuml.txt",'w')
-    data="""@startuml
-    left to right direction
-    skinparam packageStyle rectangle\n
-    """
-    for acts in actor:
-        data+=acts
-    data+="rectangle checkout {\n"
-    for str in list:
-        data+=str
-    data+="""}
-    @enduml"""
-    f.write(data) 
-    f.close()
-    time.sleep(2.0)
-    start()
-
+    Template_plantuml_txt(actor,list)
 
 def filewrite():
     list=[]
@@ -260,12 +243,14 @@ def filewrite():
     string=input("문자열을 입력하세요.")
     while(string!="end"):
         string+="\n"
-
         if 'actor' in string:
             actor.append(string)
         else:
             list.append(string)
         string=input("문자열을 입력하세요")
+    Template_plantuml_txt(actor,list)
+
+def Template_plantuml_txt(actor,list):
     f=open("plantuml.txt",'w')
     data="@startuml\n"
     data+="left to right direction\n"
@@ -279,8 +264,8 @@ def filewrite():
     data+="@enduml"
     f.write(data) 
     f.close()
-    time.sleep(2.0)
-#    start()
+    time.sleep(1.0)
+    start()
 
 def start():
     files={'filename':['plantuml.txt'],'out':'../Created_plant','server':'http://www.plantuml.com/plantuml/img/'}
@@ -291,7 +276,6 @@ def start():
     print(bool)
 
 def main():
-#    filewrite()
-    test()
+    test() 
 if __name__ == '__main__':
     main()
