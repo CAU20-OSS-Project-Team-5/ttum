@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 from io import open
 from os import environ, path, makedirs
 from zlib import compress
-
+import time
 import httplib2
 import six
 from six.moves.urllib.parse import urlencode
@@ -216,9 +216,45 @@ class PlantUML(object):
 #                         help='directory to put the files into')
 #     parser.add_argument('-s', '--server', default='http://www.plantuml.com/plantuml/img/',
 #                         help='server to generate from, defaults to "http://www.plantuml.com/plantuml/img/"')
-#     return parser
+#     return parser     ==>나중에 지울부분
 
-async def filewrite():
+
+def test():
+    str='actor hyunsoo\nactor minsoo\nactor jinsoo'
+    update_uml(str)
+
+def update_uml(str):
+    list=[]     #actor 이외
+    actor=[]    #actor만
+    str=str.strip()
+    string=str.split('\n');
+    for i,str in enumerate(string):
+        string[i]=str.strip()+"\n"
+    print(string)
+    for str in string:
+        if 'actor' in str:
+            actor.append(str)
+        else:
+            list.append(str)
+    f=open("plantuml.txt",'w')
+    data="""@startuml
+    left to right direction
+    skinparam packageStyle rectangle\n
+    """
+    for acts in actor:
+        data+=acts
+    data+="rectangle checkout {\n"
+    for str in list:
+        data+=str
+    data+="""}
+    @enduml"""
+    f.write(data) 
+    f.close()
+    time.sleep(2.0)
+    start()
+
+
+def filewrite():
     list=[]
     actor=[]
     string=input("문자열을 입력하세요.")
@@ -243,21 +279,19 @@ async def filewrite():
     data+="@enduml"
     f.write(data) 
     f.close()
-    await asyncio.sleep(2.0)
-    
+    time.sleep(2.0)
+#    start()
 
-async def start():
-    await filewrite()
+def start():
     files={'filename':['plantuml.txt'],'out':'../Created_plant','server':'http://www.plantuml.com/plantuml/img/'}
     pl = PlantUML(files['server'])
     # print(list(map(lambda filename: {'filename': filename,
     #                             'gen_success': pl.processes_file(filename, directory=files['out'])}, files['filename'])))
     bool=pl.processes_file('plantuml.txt', directory=files['out'])
     print(bool)
-def main():
-    loop=asyncio.get_event_loop()
-    loop.run_until_complete(start())
-    loop.close()
 
+def main():
+#    filewrite()
+    test()
 if __name__ == '__main__':
     main()
