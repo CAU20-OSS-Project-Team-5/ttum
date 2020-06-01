@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from PIL import Image
+import numpy as np
 
 # Create your views here.
 
@@ -9,7 +10,6 @@ def catch(request):   # NL -> PlantUML -> Img file
   text_file.write(message)
   text_file.close()
 
-  im = Image.open("static/img/waterdog.jpg")
-  im.save('static/img/UML.jpg')
+  img_url = "../static/img/waterdog.jpg"
   
-  return render(request, 'catch.html', {'message': message, 'im': im})
+  return render(request, 'catch.html', {'message': message, 'img_url': img_url})
