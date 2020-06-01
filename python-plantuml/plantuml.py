@@ -208,15 +208,15 @@ class PlantUML(object):
         return True
 
 
-def _build_parser():
-    parser = ArgumentParser(description='Generate images from plantuml defined files using plantuml server')
-    parser.add_argument('files', metavar='filename', nargs='+',
-                        help='file(s) to generate images from')
-    parser.add_argument('-o', '--out', default='',
-                        help='directory to put the files into')
-    parser.add_argument('-s', '--server', default='http://www.plantuml.com/plantuml/img/',
-                        help='server to generate from, defaults to "http://www.plantuml.com/plantuml/img/"')
-    return parser
+# def _build_parser():
+#     parser = ArgumentParser(description='Generate images from plantuml defined files using plantuml server')
+#     parser.add_argument('files', metavar='filename', nargs='+',
+#                         help='file(s) to generate images from')
+#     parser.add_argument('-o', '--out', default='',
+#                         help='directory to put the files into')
+#     parser.add_argument('-s', '--server', default='http://www.plantuml.com/plantuml/img/',
+#                         help='server to generate from, defaults to "http://www.plantuml.com/plantuml/img/"')
+#     return parser
 
 async def filewrite():
     list=[]
@@ -244,14 +244,16 @@ async def filewrite():
     f.write(data) 
     f.close()
     await asyncio.sleep(2.0)
+    
 
 async def start():
     await filewrite()
-    files={'filename':['plantuml.txt'],'out':'','server':'http://www.plantuml.com/plantuml/img/'}
+    files={'filename':['plantuml.txt'],'out':'../Created_plant','server':'http://www.plantuml.com/plantuml/img/'}
     pl = PlantUML(files['server'])
-    print(list(map(lambda filename: {'filename': filename,
-                                'gen_success': pl.processes_file(filename, directory=files['out'])}, files['filename'])))
-
+    # print(list(map(lambda filename: {'filename': filename,
+    #                             'gen_success': pl.processes_file(filename, directory=files['out'])}, files['filename'])))
+    bool=pl.processes_file('plantuml.txt', directory=files['out'])
+    print(bool)
 def main():
     loop=asyncio.get_event_loop()
     loop.run_until_complete(start())
