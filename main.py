@@ -28,13 +28,13 @@ if __name__ == '__main__':
         translated_sentences = []
         for sentence in sentences:
             sentence = nlp_handler.remove_punctuations(sentence).lower()
-            translated = nlp_handler.remove_start_end_from_translated_text(model.translate(sentence))
+            translated = nlp_handler.remove_start_end_tags(model.translate(sentence))
             translated_sentences.append(translated)
             print("Original: ", sentence)
             print("Translated: ", translated)
 
         # Get actor definition texts and translated texts
-        actor_text = nlp_handler.get_plantuml_actor_sentence_list(paragraph)
+        actor_text = nlp_handler.get_actor_text(translated_sentences)
         translated_text = nlp_handler.convert_list_to_lines(translated_sentences)
 
         # Print them
