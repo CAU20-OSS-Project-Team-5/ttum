@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <form action="/catch", method="get">
+    <a>NL Input : </a>
+    <input type="text" name="message"/>
+    <input type="submit" value="Convert"/>
+  </form>
+
+  {% load static %} <!-- static 파일의 절대 URL 생성 -->
+  <script src="{% static 'js/test.js' %}"></script>
+
+</body>
+</html>
+
+
+
+
