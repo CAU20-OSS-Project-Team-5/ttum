@@ -69,8 +69,13 @@ class NLPHandler:
         :param s: the translated text that may contain "<start> " and " <end>"
         :return: the translated text where "<start> " and " <end>" are removed
         """
+        s.strip()
+
         if s.endswith(" <end>"):
             s = s[:-6]
+
+        if s.endswith(" <end> "):
+            s = s[:-7]
 
         if s.startswith("<start> "):
             s = s[8:]

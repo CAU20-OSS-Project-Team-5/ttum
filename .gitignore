@@ -128,8 +128,14 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# IDE Files
+.idea/
+.vscode/
+settings.json
+
 # Checkpoints for tensorflow models
 training_checkpoints/
 
-# IntelliJ Files
-.idea/
+# PlantUML result text and image files
+result_files/diagrams/*
+result_files/texts/*
