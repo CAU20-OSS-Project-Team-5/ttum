@@ -207,10 +207,6 @@ class PlantUML(object):
         out.close()
         return True
 
-def test():
-    str="actor hyunsoo\nactor jinsoo\n asndkasjlndkjsandjksan"
-    filewrite(str)
-
 def filewrite(str):
     list=[]
     actor=[]
@@ -249,7 +245,7 @@ def start():
     return PF
 
 def main():
-    test() 
+
 
 if __name__ == '__main__':
     main()
