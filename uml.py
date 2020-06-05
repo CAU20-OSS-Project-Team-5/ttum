@@ -4,6 +4,16 @@ import os
 import glob
 
 # Path to save PlantUML text and image files
+
+#if not exist result_files folder, make folder
+try:
+    if not os.path.exists("result_files"):
+        os.mkdir("result_files")
+        os.mkdir("result_files/texts")
+        os.mkdir("result_files/diagrams")
+except OSError:
+    print("Error: Creating Directory results_files")
+
 result_path = os.path.join('result_files')
 
 # Path, name, and location of the PlantUML text file to save
