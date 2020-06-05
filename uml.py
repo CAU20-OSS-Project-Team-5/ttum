@@ -12,6 +12,9 @@ text_file_path = os.path.join(result_path, 'texts')
 # Path to save PlantUML result image file
 image_file_path = os.path.join(result_path, 'diagrams')
 
+# File name of the usecase PlantUML text file
+usecase_file_name = 'usecase_diagram.plantuml'
+
 
 def create_usecase_diagram_image(actor_text, relationship_text):
     """Create usecase diagram and return whether it was successful.
@@ -21,8 +24,7 @@ def create_usecase_diagram_image(actor_text, relationship_text):
     :return: True if creating the image was successful, False if it was unsuccessful
     """
     # File name and location to save the uml results
-    file_name = 'usecase_diagram.plantuml'
-    text_file_loc = os.path.join(text_file_path, file_name)
+    text_file_loc = os.path.join(text_file_path, usecase_file_name)
 
     # The location to save the PlantUML text file
     f = open(text_file_loc, 'w')
@@ -42,7 +44,19 @@ rectangle checkout {
     f.close()
     time.sleep(1.0)
 
-    is_successful = create_uml_diagram_image(file_name)
+    is_successful = create_uml_diagram_image(usecase_file_name)
+    return is_successful
+
+
+def update_uml_diargram_image(plantuml_file_name):
+    """Update PlantUML text file and create PlantUML image again.
+
+    This function is used when the PlantUML text has been updated and the server needs to update the image as well.
+
+    :param plantuml_file_name: the PlantUML file name to update to create the image
+    :return: True if creating the image was successful, False if it was unsuccessful
+    """
+    is_successful = create_uml_diagram_image(plantuml_file_name)
     return is_successful
 
 
