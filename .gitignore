@@ -139,3 +139,5 @@ training_checkpoints/
 # PlantUML result text and image files
 result_files/diagrams/*
 result_files/texts/*
+!result_files/diagrams/.gitkeep
+!result_files/texts/.gitkeep
