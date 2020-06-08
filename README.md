@@ -1,6 +1,28 @@
 # Text-to-UML: TTUM
 자연어 처리 및 딥러닝을 이용하여 자연어 문단을 UML 다이어그램으로 변환시켜주는 프로그램
 
+## Installation
+```shell
+$ python -m venv .venv                  # Create virtual environment
+$ .venv/bin/activate                    # or '.venv\Scripts\activate' on Windows
+$ pip install --upgrade pip             # Update pip - or 'python -m pip install --upgrade pip' on Windows
+$ pip install -r requirements.txt       # Get packages using requirements.txt
+```
+
+## Initial Setups
+### Download NLTK Data
+- You need to download **NLTK data** to use the `nlp` module.
+1. You need to *uncomment* `nltk.download('all')` in `NLPHandler.__init__` in `nlp.py` when you run for the first time.
+2. When you run the program with the uncommented line, the program will download NLTK data from the NLTK server.
+3. Then, you can *comment* the line again.
+
+### Create Training Checkpoints
+- In order to use the model to translate natural language to PlantUML text, you need to train the model with the `train.csv`.
+- Give `epoch` parameter of `UMLHandler` an **integer more than 0** at least **once**, to train the model and create checkpoints in `training_checkpoints/`.
+- Then, you can set `epoch=0` again, so that the program can just restore the checkpoints to translate next time you run it.
+- If there is any change in `train.csv`, you need to train the model again.
+
+
 ## 파일 및 폴더 설명
 ### jupyter 폴더
 - Jupyter notebook 파일들이 담겨있는 폴더
