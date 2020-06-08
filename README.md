@@ -1,4 +1,5 @@
 # Text-to-UML: TTUM
+<img width="781" alt="ttum_logo_sketch" src="https://user-images.githubusercontent.com/42485462/84044589-bdc92300-a9e2-11ea-8b79-85bcd7e3c76b.png">
 자연어 처리 및 딥러닝을 이용하여 자연어 문단을 UML 다이어그램으로 변환시켜주는 프로그램
 
 ## Installation
