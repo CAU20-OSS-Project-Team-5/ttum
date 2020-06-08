@@ -141,3 +141,6 @@ result_files/diagrams/*
 result_files/texts/*
 !result_files/diagrams/.gitkeep
 !result_files/texts/.gitkeep
+
+# Unnecessary file from macOS
+.DS_Store
