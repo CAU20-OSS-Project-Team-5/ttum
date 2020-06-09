@@ -1,49 +1,68 @@
 ﻿src,tar
-The customer does checkout.,customer -- (checkout)
+The customer does checkout.,Customer -- (checkout)
 The checkouts require payment.,(checkout) .> (payment) : include
 The checkouts need to payment.,(checkout) .> (payment) : include
 Help extends checkout.,(help) .> (checkout) : extends
-Checkout is done by clerk.,(checkout) -- clerk
-
-User does write.,User -- (write)
-write is done by User.,(write) -- User
+Checkout is done by clerk.,(checkout) -- Clerk
+User does writing.,User -- (write)
+Writing is done by User.,User -- (write)
 User does update.,User -- (update) 
-update is done by User.,(update) -- User
-User does read.,User -- (read) 
-read is done by User.,(read) -- User
-The writes requires Login.,(write) .> (Login) : include
-The writes need to Login.,(write) .> (Login) : include
-The updateing requires Login.,(update) .> (Login) : include
-The updateing need to Login.,(update) .> (Login) : include
-Picture_Uploading extends write.,(Picture_Upload) .> (write) : extends
-Picture_Uploading can write.,(Picture_Upload) .> (write) : extends
-
-Someone does inquire Something.,Someone -- (inquire)
-inquire is done by Someone.,(inquire) -- Someone
-Someone does buy Something.,Someone -- (buy)
-buying is done by Someone.,(buy) -- Someone
-The inquires requires Login.,(inquire) .> (Login) : include
-The inquires need to Login.,(inquire) .> (Login) : include
-The buying requires Login.,(buy) .> (Login) : include
-The buying need to Login.,(buy) .> (Login) : include
-
-Student does study Something.,Student -- (study)
-studying is done by Student.,(study) -- Student
-
-User does Login into portal system.,User -- (Login)
-Login is done by User.,(Login) -- User
-Login requires Authentication.,(Login) .> (Authentication) : include
-Login need to Authentication.,(Login) .> (Authentication) : include
-
-Member can Immediate_Transfer.,Member -- (Immediate_Transfer)
-Immediate_Transfer is done by Member.,(Immediate_Transfer) -- Member
-Member can Automatic_Transfer.,Member -- (Automatic_Transfer)
-Automatic_Transfer is done by Member.,(Automatic_Transfer) -- Member
-Immediate_Transfer requires Balance_inquiry.,(Immediate_Transfer) .> (Balance_inquiry) : include
-Immediate_Transfer need to Balance_inquiry.,(Immediate_Transfer) .> (Balance_inquiry) : include
-Immediate_Transfer requires Limit_inquiry.,(Automatic_Transfer) .> (Limit_inquiry) : include
-Immediate_Transfer need to Limit_inquiry.,(Automatic_Transfer) .> (Limit_inquiry) : include
-Additional_transfer extends Immediate_Transfer.,(Additional_transfer) .> (Immediate_Transfer) : extends  
-Automatic_Transfer Inherits Immediate_Transfer (Immediate_Transfer) <|-- (Automatic_Transfer)
-
-
+Update is done by user.,User -- (update) 
+User reads.,User -- (read) 
+Reading is done by user.,User -- (read) 
+The writes requires login.,(Write) .> (Login) : include
+The writes need to login.,(Write) .> (Login) : include
+The updateing requires login.,(Update) .> (Login) : include
+The updateing need to login.,(Update) .> (Login) : include
+Uploading picture extends write.,(Upload picture) .> (write) : extends
+Uploading picture can use write.,(Upload picture) .> (write) : extends
+Someone does inquire something.,Someone -- (inquire)
+inquire is done by someone.,Someone -- (Inquire)
+Someone buys something.,Someone -- (buy)
+Buying is done by someone.,Someone -- (buy)
+Purchases are done by someone.,Someone -- (purchase)
+Purchase is done by someone.,Someone -- (purchase)
+Purchases are made by someone.,Someone -- (purchase)
+The inquires requires login.,(inquire) .> (Login) : include
+The inquires need login.,(inquire) .> (Login) : include
+Buying requires Login.,(buy) .> (login) : include
+Buying needs login.,(buy) .> (login) : include
+Student does study something.,Student -- (study)
+Student studies something.,Student -- (study)
+Studying is done by Student.,(study) -- Student
+User does Login into portal system.,User -- (login)
+Login is done by User.,(login) -- User
+Login requires authentication.,(login) .> (authentication) : include
+Login need authentication.,(login) .> (authentication) : include
+Member can use immediate transfer.,Member -- (Immediate Transfer)
+Immediate transfer is done by member.,(Immediate Transfer) -- Member
+Member can use automatic transfer.,Member -- (Automatic Transfer)
+Automatic transfer is done by member.,(Automatic Transfer) -- Member
+Immediate transfer requires Balance inquiry.,(Immediate transfer) .> (Balance inquiry) : include
+Immediate transfer need to Balance inquiry.,(Immediate transfer) .> (Balance inquiry) : include
+Immediate transfer requires limit inquiry.,(Automatic transfer) .> (Limit inquiry) : include
+Immediate transfer need to limit inquiry.,(Automatic transfer) .> (Limit inquiry) : include
+Additional transfer extends immediate transfer.,(Additional transfer) .> (Immediate transfer) : extends  
+Automatic transfer inherits immediate transfer.,(Automatic transfer) --|> (Immediate transfer)
+The customer takes out cash.,customer -- (withdraw)
+Withdrawal requires login.,(withdrawal) .> (login) : include
+The customer needs to register to the system.,customer -- (register)
+Login requires register.,(login) .> (register) : include
+The user can register to the system.,User -- (register)
+The user can login to the system.,User -- (login)
+The administrator can delete a user.,Administrator - (delete user)
+The administrator can delete a book information.,Administrator - (delete book)
+The administrator can deactivate a user.,Administrator - (deactivate user)
+The administrator can activate a user.,Administrator - (activate user)
+Deleting a user requires deactivation of the user.,(delete user) .> (deactivate user) : include
+User can upload files.,User -- (upload files)
+User can upload different files.,User -- (upload files)
+User can upload different files to the system.,User -- (upload files)
+User can get a list of books from the main menu.,User -- (get list of books)
+Users can delete their own books.,User -- (delete own books)
+The user can search for a book with some information.,User -- (search for a book)
+Users can search for a book with some information.,User -- (search for a book)
+The user can upload images to the server.,User -- (upload image)
+Users can upload images to the server.,User -- (upload image)
+The user can search for an image.,User -- (search for an image)
+Users can search for an image.,User -- (search for an image)
