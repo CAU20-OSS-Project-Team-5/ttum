@@ -18,10 +18,12 @@ class UMLHandler():
         # Restore checkpoints
         self.model.restore_checkpoint()
 
-    def convert_into_usecase_uml(self, paragraph):
+    def convert_into_usecase_uml(self, paragraph, usecase_file_name='usecase_diagram.plantuml'):
         """Convert paragraph into usecase diagram image and save the image in the server
 
+
         :param paragraph: the paragraph to translate into PlantUML usecase diagram image
+        :param usecase_file_name: file name of the usecase PlantUML text file
         :return: boolean value of whether the converting process has been successful
         """
         is_successful = False
@@ -52,8 +54,7 @@ class UMLHandler():
             print(translated_text)
 
             # Create PlantUML text and image file for usecase diagram
-            uml.cleanup_result_files()  # Clean up previous result files in the result folder
-            is_successful = uml.create_usecase_diagram_image(actor_text, translated_text)
+            is_successful = uml.create_usecase_diagram_image(actor_text, translated_text, usecase_file_name)
             if is_successful is True:
                 print("Done creating usecase diagram image and text file.")
             else:
@@ -64,11 +65,19 @@ class UMLHandler():
 
         return is_successful
 
-    def update_usecase_uml(self):
+    def update_usecase_uml(self, usecase_file_name='usecase_diagram.plantuml'):
         """Update the usecase UML diagram image with the user-updated PlantUML text
 
-        @return: boolean value of whether the converting process has been successful
+        :param usecase_file_name: file name of the usecase PlantUML text file
+        :return: boolean value of whether the converting process has been successful
         """
-        is_successful = uml.update_uml_diargram_image(uml.usecase_file_name)
+        is_successful = uml.update_uml_diargram_image(usecase_file_name)
 
         return is_successful
+
+    def cleanup_plantuml_files(self, plantuml_text_file_name):
+        """Remove '.plantuml' and '.png' plantuml files that are named as given file name in result_files/diagrams/ and result_files/texts
+
+        :param plantuml_text_file_name: the name of the PlantUML text file
+        """
+        uml.cleanup_result_files(plantuml_text_file_name)  # Clean up previous result files in the result folder
