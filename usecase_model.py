@@ -10,7 +10,8 @@ import os
 import io
 import time
 
-path_to_file = "usecase_data/train.csv"
+dir_path = os.path.dirname(os.path.realpath(__file__))
+path_to_file = os.path.join(dir_path, "usecase_data", "train.csv")
 
 
 class Model():
@@ -86,7 +87,7 @@ class Model():
             from_logits=True, reduction='none')
 
         # Checkpoints (Object-based saving)
-        self.checkpoint_dir = './training_checkpoints'
+        self.checkpoint_dir = os.path.join(dir_path, 'training_checkpoints')
         self.checkpoint_prefix = os.path.join(self.checkpoint_dir, "ckpt")
         self.checkpoint = tf.train.Checkpoint(optimizer=self.optimizer,
                                               encoder=self.encoder,

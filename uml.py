@@ -3,8 +3,10 @@ import time
 import os
 import glob
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
 # Path to save PlantUML text and image files
-result_path = os.path.join('result_files')
+result_path = os.path.join(dir_path, 'result_files')
 
 # Path, name, and location of the PlantUML text file to save
 text_file_path = os.path.join(result_path, 'texts')
