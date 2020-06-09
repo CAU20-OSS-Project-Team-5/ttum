@@ -92,11 +92,12 @@ class NLPHandler:
         actor_list = []
 
         for s in temp_list:  # Get each sentence
-            for i in (0, 2):  # Check first and third item in the sentence
-                candidate = s[i]  # candidate for an actor
-                # If the item is not surrounded by '(' and ')', it is an actor
-                if candidate.startswith('(') is False and candidate.endswith(')') is False:
-                    actor_list.append(candidate)
+            if len(s) > 2:  # Execute only when each string has 3 or more words
+                for i in (0, 2):  # Check first and third item in the sentence
+                    candidate = s[i]  # candidate for an actor
+                    # If the item is not surrounded by '(' and ')', it is an actor
+                    if candidate.startswith('(') is False and candidate.endswith(')') is False:
+                        actor_list.append(candidate)
 
         return actor_list
 
