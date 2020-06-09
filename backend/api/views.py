@@ -7,6 +7,11 @@ from .serializers import TaskSerializer
 
 from .models import Task
 
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
+from uml_handler import UMLHandler
+
 # Create your views here.
 @api_view(['GET'])
 def apiOverview(request):
@@ -46,6 +51,13 @@ def taskCreate(request):
         serializer.save()
 
     task = Task.objects.last()
+    uml_handler = UMLHandler(train_epoch=0)
+    # Convert paragraph into usecase diagram image
+    is_successful = uml_handler.convert_into_usecase_uml(task.title)
+
+    # Update the usecase diagram image with user-updated PlantUML text
+    is_successful = uml_handler.update_usecase_uml()
+
     task.title = 'converted!!'
     task.save() 
 
