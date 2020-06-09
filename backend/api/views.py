@@ -12,6 +12,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from uml_handler import UMLHandler
 
+
 # Create your views here.
 @api_view(['GET'])
 def apiOverview(request):
@@ -43,14 +44,11 @@ def taskCreate(request):
     
     serializer = TaskSerializer(data=request.data)
 
-    if Task.objects.last():
-      task = Task.objects.last()  
-      task.delete()
-
-    if serializer.is_valid():
+    if serializer.is_valid():   # 데이터 Database의 api_task table에 저장
         serializer.save()
 
-    task = Task.objects.last()
+    task = Task.objects.last()  # 방금 추가한 데이터를 불러옴
+
     uml_handler = UMLHandler(train_epoch=0)
     # Convert paragraph into usecase diagram image
     is_successful = uml_handler.convert_into_usecase_uml(task.title)
@@ -58,8 +56,15 @@ def taskCreate(request):
     # Update the usecase diagram image with user-updated PlantUML text
     is_successful = uml_handler.update_usecase_uml()
 
-    task.title = 'converted!!'
-    task.save() 
+    # task.title = definitions.image_path
+    task.title = os.path.join('C:\\','Users','jinsm','project-uml','result_files','diagrams','usecase_diagram.png')
+
+    task.save()
+
+    if Task.objects.first():
+        task = Task.objects.first()
+        task.delete()
+
 
     return Response(serializer.data)
 
