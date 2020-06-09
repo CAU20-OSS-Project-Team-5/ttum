@@ -1,4 +1,4 @@
-﻿src,tar
+src,tar
 The customer does checkout.,Customer -- (checkout)
 The checkouts require payment.,(checkout) .> (payment) : include
 The checkouts need to payment.,(checkout) .> (payment) : include
@@ -66,3 +66,52 @@ The user can upload images to the server.,User -- (upload image)
 Users can upload images to the server.,User -- (upload image)
 The user can search for an image.,User -- (search for an image)
 Users can search for an image.,User -- (search for an image)
+She logs in.,She -- (logs in)
+He logs out.,He -- (logs out)
+She pushes the button.,She -- (push button)
+He pushes the button.,He  -- (push button)
+Yang pushes the button.,Yang  -- (push button)
+I push the button.,I  --  (push button)
+I touch two buttons at the same time.,I  -- (touch two buttons) : at the same time 
+She touches three buttons respectively.,She -- (touche three buttons) : respectively
+Lee writes a letter.,Lee --  (writes a letter)
+Park make a letter.,Park -- (make a letter)
+User write a letter.,User -- (write a letter)
+Kim saves a written letter.,Kim  -- (save a written letter)
+I save a written letter.,I --  (save a written letter)
+She recalls the stored information one after another.,She --  (recall the stored information) : one after another
+He recalls the stored information one after another.,He -- (recalls the stored information) : one after another
+User recall stored letters one by one.,User  -- (recall stored letters) : one by one
+Lee recalls saved letters step by step.,Lee -- (recall saved letters) : step by step
+Jin calls some saved packages respectively.,Jin -- (call saved packages) : respectively
+Park brings saved files one by one.,Park -- (bring saved files) : one by one
+Yang can open saved files one by one.,Yang  -- (open saved files) : one by one
+Kim can recall stored letters one after another.,Kim --  (recall stored letters) : one after another
+She would recall saved files step by step.,She --  (recall saved files) : step by step
+Hamlet can temporarily save the text he is writing.,Hamlet --  (temporarily save the text) : during writing
+Yang can temporarily store the text he is writing.,Yang --  (temporarily store text) : during writing
+She can temporarily store text she is writing.,She  -- (temporarily store text) : during writing
+Lee can recall the temporarily saved file.,Lee  -- (recall temporarily saved file)
+Jin may recall temporarily saved files.,Jin --  (recall temporarily saved files)
+My daughter can recall files in temporary storage.,My daughter  -- (recall files) : in temporary storage
+He recalls letters in temporary storage.,He -- (recall letters) : from temporary storage
+He can receive letters from other users.,He --  (receive letters) : from other users
+She should log in to see what other users gave to her., 
+I have to log in to watch that other users gave letters to me.,
+Lee logs in to see what he received from other users.,
+Kim log in to see the letters he received.,
+Sexy guy sungmin logs in to see what he received.,
+Sexy girl seungjun logs in to see what he received from others.,
+Lg twins kimhyunsoo sends other user a love letter.,
+Zion t have to enter the password before sending letters.,
+All have to log in to use the system.,
+All can send messages to other users.,
+All can receive letters from other users.,
+All can recall saved file from cloud.,
+All can recall saved file from storage.,
+All can temporarily save messages in temporary storage.,
+She needs public certificate to log in.,
+He needs public certificate to log in.,
+I need certificate to send messages.,
+Kim needs password to send message.,
+She needs passport to delete storage.,
