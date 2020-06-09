@@ -1,5 +1,6 @@
 import "./App.css";
 import React from "react";
+
 import { Image } from "react-bootstrap";
 import { Typography, Row, Col, Input, Button, Menu } from "antd";
 import handsomeimage from "./Background.jpeg";
@@ -11,13 +12,99 @@ const { TextArea } = Input;
 const { Title, Paragraph } = Typography;
 
 class App extends React.Component {
-  state = {
-    image: "",
-    description:
-      "this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. ",
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      take: [],
+      image: "",
+      activeItem: {
+        id:null,
+        title:'',
+      },
+      description: "this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. ",
+    }
+    this.fetchTasks = this.fetchTasks.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillMount() {
+    this.fetchTasks()
+
+    fetch('http://127.0.0.1:8020/api/task-list/')
+    .then(response => response.json())
+    .then(data =>
+        //console.log('Data:', data),
+        this.setState({
+          take: data
+        }),
+
+      )
+
+  }
+
+  componentDidMount() {
+    this.fetchTasks()
+
+    fetch('http://127.0.0.1:8020/api/task-list/')
+    .then(response => response.json())
+    .then(data =>
+        //console.log('Data:', data),
+        this.setState({
+          take: data
+        }),
+
+      )
+  }
+
+  fetchTasks() {
+    console.log('Fetching...')
+  }
+
+  handleChange(e) {
+    var value = e.target.value
+
+    console.log('Text:', value)
+
+    this.setState({
+      activeItem: {
+        ...this.state.activeItem,
+        title: value
+      }
+    });
+
+
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log('ITEM:',this.state.activeItem);
+
+    var url = 'http://127.0.0.1:8020/api/task-create/'
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(this.state.activeItem)
+    }).then((response) => {
+      this.fetchTasks()
+      this.setState({
+        activeItem: {
+          id:null,
+          title:'',
+        },
+      })
+      this.componentWillMount()
+    }).catch(function(error) {
+      console.log('ERROR:', error)
+    })
+
+  }
 
   render() {
+    var tasks = this.state.take
     return (
       <div>
         <Row
@@ -42,13 +129,16 @@ class App extends React.Component {
             <Menu.Item key="2">Class Diagram</Menu.Item>
             <Menu.Item key="3">Sequence Diagram</Menu.Item>
           </Menu>
+
         </Row>
+        <form onSubmit={this.handleSubmit}>
         <Row
           style={{
             align: "middle",
             justify: "center",
           }}
         >
+
           <Col
             span={10}
             style={{
@@ -58,15 +148,20 @@ class App extends React.Component {
               justifyContent: "center",
             }}
           >
+
             <Title style={{ color: "#00008B" }}>Text Input</Title>
-            <TextArea
-              style={{
-                minWidth: "30vh",
-                minHeight: "30vh",
-                marginLeft: "30px",
-              }}
-            />
+
+
+              <textarea
+                value={this.state.value}
+                onChange={this.handleChange}
+                style={{
+                  minWidth: "80vh",
+                  minHeight: "30vh",
+                  marginLeft: "30px",
+                }} />
           </Col>
+
           <Col
             span={4}
             style={{
@@ -76,15 +171,27 @@ class App extends React.Component {
               justifyContent: "center",
             }}
           >
-            <Button
-              type="primary"
-              size="large"
-              style={{ marginBottom: "10px" }}
-            >
-              Convert
-            </Button>
+            <div style={{fontSize:"25px"}}>
+            <input
+              type="submit"
+              value="Convert"
+            />
+           </div>
+
             <ArrowRightOutlined />
+
+            <div>
+              {tasks.map(function(task, index){
+                return(
+                  <div key={index}>
+                    <span>{task.title}</span>
+                  </div>
+                )
+              })}
+            </div>
+
           </Col>
+
           <Col span={10}>
             <div
               style={{
@@ -136,6 +243,7 @@ class App extends React.Component {
             style={{ marginLeft: "5px", maxHeight: "3vh" }}
           />
         </Row>
+        </form>
       </div>
     );
   }
