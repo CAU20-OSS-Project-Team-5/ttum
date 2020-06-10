@@ -1,6 +1,5 @@
-import usecase_model
-import nlp
-import uml
+from backend.nlp.nlp_handler import NLPHandler
+from backend.nlp import uml, usecase_model
 
 
 class UMLHandler():
@@ -29,7 +28,7 @@ class UMLHandler():
         is_successful = False
         try:
             # Translate each sentence in paragraph
-            nlp_handler = nlp.NLPHandler()
+            nlp_handler = NLPHandler()
             sentences = nlp_handler.get_sentences(paragraph)
 
             translated_sentences = []
@@ -76,7 +75,7 @@ class UMLHandler():
         return is_successful
 
     def cleanup_plantuml_files(self, plantuml_text_file_name):
-        """Remove '.plantuml' and '.png' plantuml files that are named as given file name in result_files/diagrams/ and result_files/texts
+        """Remove '.plantuml' and '.png' plantuml files that are named as given file name in media/diagrams/ and media/texts
 
         :param plantuml_text_file_name: the name of the PlantUML text file
         """

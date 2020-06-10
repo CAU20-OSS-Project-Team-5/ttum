@@ -1,6 +1,3 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import TaskSerializer
@@ -10,7 +7,7 @@ from .models import Task
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
-from uml_handler import UMLHandler
+from backend.nlp.uml_handler import UMLHandler
 
 
 # Create your views here.
@@ -50,16 +47,18 @@ def taskCreate(request):
     task = Task.objects.last()  # 방금 추가한 데이터를 불러옴
 
     uml_handler = UMLHandler(train_epoch=0)
+
     # Convert paragraph into usecase diagram image
     is_successful = uml_handler.convert_into_usecase_uml(task.title)
 
     # Update the usecase diagram image with user-updated PlantUML text
     is_successful = uml_handler.update_usecase_uml()
 
+
     # task.title = definitions.image_path
 
     #task.images = os.path.join('..','result_files','diagrams','usecase_diagram.png')
-    task.images = os.path.join('usecase_diagram.png')
+    task.images = os.path.join('..','media','diagrams','usecase_diagram.png')
     # task.title = os.path.join('usecase_diagram.png')
     task.save()
     # redirect('/api/detail/' + str(task.id))

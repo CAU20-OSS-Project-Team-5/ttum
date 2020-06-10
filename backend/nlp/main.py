@@ -1,4 +1,4 @@
-from uml_handler import UMLHandler
+from backend.nlp.uml_handler import UMLHandler
 import uuid
 
 
@@ -20,6 +20,6 @@ if __name__ == '__main__':
     # Update the usecase diagram image with user-updated PlantUML text
     is_successful = uml_handler.update_usecase_uml(usecase_file_name=hashed_plantuml_file_name)
 
-    # Cleanup usecase diagram images and texts from 'result_files/'
+    # Cleanup usecase diagram images and texts from 'media/'
     uml_handler.cleanup_plantuml_files(plantuml_text_file_name=hashed_plantuml_file_name)
     print("Done updating the image with the new PlantUML text file.")

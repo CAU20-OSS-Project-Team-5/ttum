@@ -10,8 +10,13 @@ import os
 import io
 import time
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-path_to_file = os.path.join(dir_path, "usecase_data", "train.csv")
+from pathlib import Path
+
+dir_path = os.path.dirname(os.path.realpath(__file__))  # Path name of this module
+training_checkpoints_path = 'training_checkpoints'  # Training checkpoints path name
+
+backend_path = Path(dir_path).parent  # Path of the 'backend' folder
+path_to_file = os.path.join(backend_path, 'nlp', 'usecase_data', 'train.csv')  # Location of the 'train.csv' file
 
 
 class Model():
@@ -87,7 +92,7 @@ class Model():
             from_logits=True, reduction='none')
 
         # Checkpoints (Object-based saving)
-        self.checkpoint_dir = os.path.join(dir_path, 'training_checkpoints')
+        self.checkpoint_dir = os.path.join(dir_path, training_checkpoints_path)
         self.checkpoint_prefix = os.path.join(self.checkpoint_dir, "ckpt")
         self.checkpoint = tf.train.Checkpoint(optimizer=self.optimizer,
                                               encoder=self.encoder,
@@ -285,7 +290,7 @@ class Model():
         ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
         ax.yaxis.set_major_locator(ticker.MultipleLocator(1))
 
-        plt.show()
+        # plt.show()
 
     def translate(self, sentence):
         try:

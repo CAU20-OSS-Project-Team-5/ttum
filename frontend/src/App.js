@@ -2,7 +2,6 @@ import "./App.css";
 import React from "react";
 
 import { Image } from "react-bootstrap";
-import Img from 'react-image';
 import { Typography, Row, Col, Input, Button, Menu } from "antd";
 import handsomeimage from "./Background.jpeg";
 import logo from "./black_logo.png";
@@ -19,16 +18,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       take: [],
-      image: "",
+      check:0,
       activeItem: {
         id:null,
         title:'',
       },
       description: "this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. ",
     }
+    
     this.fetchTasks = this.fetchTasks.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
 
   componentWillMount() {
@@ -37,18 +38,17 @@ class App extends React.Component {
     fetch('http://127.0.0.1:8020/api/task-list/')
     .then(response => response.json())
     .then(data =>
-        //console.log('Data:', data),
         this.setState({
           take: data
         }),
-
       )
 
   }
 
   componentDidMount() {
+    setTimeout(function() {
     this.fetchTasks()
-
+  
     fetch('http://127.0.0.1:8020/api/task-list/')
     .then(response => response.json())
     .then(data =>
@@ -56,8 +56,8 @@ class App extends React.Component {
         this.setState({
           take: data
         }),
-
       )
+    }.bind(this), 4000)
   }
 
   fetchTasks() {
@@ -75,7 +75,6 @@ class App extends React.Component {
         title: value
       }
     });
-
 
   }
 
@@ -98,7 +97,8 @@ class App extends React.Component {
           title:'',
         },
       })
-      this.componentWillMount()
+      console.log(this.state.activeItem)
+      this.componentDidMount()
     }).catch(function(error) {
       console.log('ERROR:', error)
     })

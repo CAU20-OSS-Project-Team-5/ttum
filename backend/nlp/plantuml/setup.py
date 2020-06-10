@@ -1,5 +1,5 @@
 from setuptools import setup
-from plantuml.plantuml import __author__, __version_string__, __email__
+from backend.nlp.plantuml import __author__, __version_string__, __email__
 
 setup(
     name='plantuml',
