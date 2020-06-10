@@ -37,7 +37,7 @@ def taskList(request):
 def taskDetail(request, pk):
     tasks = Task.objects.get(id=pk)
     serializer = TaskSerializer(tasks, many=False)
-    return Response(serializer.data)
+    return Response(tasks.title)
 
 @api_view(['POST'])
 def taskCreate(request):
@@ -57,16 +57,26 @@ def taskCreate(request):
     is_successful = uml_handler.update_usecase_uml()
 
     # task.title = definitions.image_path
-    task.title = os.path.join('C:\\','Users','jinsm','project-uml','result_files','diagrams','usecase_diagram.png')
 
+    #task.images = os.path.join('..','result_files','diagrams','usecase_diagram.png')
+    task.images = os.path.join('usecase_diagram.png')
+    # task.title = os.path.join('usecase_diagram.png')
     task.save()
+    # redirect('/api/detail/' + str(task.id))
+
 
     if Task.objects.first():
         task = Task.objects.first()
         task.delete()
 
-
     return Response(serializer.data)
+
+@api_view(['GET'])
+def viewImage(request, pk):
+    task = Task.objects.get(id=pk)
+    #serializer = TaskSerializer(instance=task, data=request.data)
+
+    return Response(task.images)
 
 @api_view(['POST'])
 def taskUpdate(request, pk):

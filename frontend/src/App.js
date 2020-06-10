@@ -2,9 +2,11 @@ import "./App.css";
 import React from "react";
 
 import { Image } from "react-bootstrap";
+import Img from 'react-image';
 import { Typography, Row, Col, Input, Button, Menu } from "antd";
 import handsomeimage from "./Background.jpeg";
 import logo from "./black_logo.png";
+
 import django_logo from "./django.png";
 import react_logo from "./react.png";
 import { ArrowRightOutlined } from "@ant-design/icons";
@@ -180,15 +182,7 @@ class App extends React.Component {
 
             <ArrowRightOutlined />
 
-            <div>
-              {tasks.map(function(task, index){
-                return(
-                  <div key={index}>
-                    <span>{task.title}</span>
-                  </div>
-                )
-              })}
-            </div>
+            
 
           </Col>
 
@@ -203,10 +197,16 @@ class App extends React.Component {
               }}
             >
               <Title style={{ color: "#00008B" }}>UML Diagram</Title>
-              <Image
-                src={handsomeimage}
-                style={{ maxWidth: "100%", height: "auto" }}
-              />
+              <div>
+              {tasks.map(function(task, index){
+                return(
+                  <div key={index}>
+                    
+                    <img src= {'http://127.0.0.1:8020'+ task.images} style={{ width: "500px" }}></img>
+                  </div>
+                )
+              })}
+            </div>
               <Typography
                 style={{
                   display: "flex",

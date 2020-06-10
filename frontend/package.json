@@ -11,6 +11,8 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+    "react-image": "^4.0.1",
+    "react-load-image": "^0.1.7",
     "react-scripts": "^3.4.1"
   },
   "scripts": {
