@@ -178,7 +178,6 @@ Products managers can list stock levels.,Product Manager -- (list stock levels)
 Products managers list stock levels.,Product Manager -- (list stock levels)
 The products managers list stock levels.,Product Manager -- (list stock levels)
 The products managers can list stock levels.,Product Manager -- (list stock levels)
-=======
 system check member whether he or she is Existing member.,system -- (check) : whether\nhe or she is\nExisting member
 he is checked by system.,(check) -- system : whether\nhe or she is\nExisting member
 User request sign up for system.,user -- (sign up) : for Login
@@ -196,4 +195,3 @@ quote can discount., (quote) .> (discount) : extends
 quote extends discount., (quote) .> (discount) : extends
 quote require check the customer information., (quote) .> (check the customer) : include
 sales representative refer to a product classification., sales representative -- (refer) : a product classification
->>>>>>> Stashed changes
