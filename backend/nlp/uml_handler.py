@@ -1,5 +1,5 @@
-from backend.nlp import nlp, usecase_model
-from backend.nlp import uml
+from backend.nlp.nlp_handler import NLPHandler
+from backend.nlp import uml, usecase_model
 
 
 class UMLHandler():
@@ -28,7 +28,7 @@ class UMLHandler():
         is_successful = False
         try:
             # Translate each sentence in paragraph
-            nlp_handler = nlp.NLPHandler()
+            nlp_handler = NLPHandler()
             sentences = nlp_handler.get_sentences(paragraph)
 
             translated_sentences = []
