@@ -1,6 +1,3 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import TaskSerializer
@@ -10,7 +7,7 @@ from .models import Task
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
-from uml_handler import UMLHandler
+from backend.nlp.uml_handler import UMLHandler
 
 # Create your views here.
 @api_view(['GET'])
@@ -52,14 +49,20 @@ def taskCreate(request):
 
     task = Task.objects.last()
     uml_handler = UMLHandler(train_epoch=0)
+
+    example_paragraph = u"""The customer does checkout.
+    The checkouts require payment.
+    Help extends checkout.
+    Checkout is done by clerk."""
+
     # Convert paragraph into usecase diagram image
-    is_successful = uml_handler.convert_into_usecase_uml(task.title)
+    is_successful = uml_handler.convert_into_usecase_uml(example_paragraph)
 
     # Update the usecase diagram image with user-updated PlantUML text
     is_successful = uml_handler.update_usecase_uml()
 
-    task.title = 'converted!!'
-    task.save() 
+    # task.title = 'converted!!'
+    # task.save()
 
     return Response(serializer.data)
 

@@ -1,12 +1,13 @@
-import plantuml.plantuml as plantuml
+from ..nlp.plantuml import plantuml
 import time
 import os
-import glob
+from pathlib import Path
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
+dir_path = os.path.dirname(os.path.realpath(__file__))  # Path name of this module
+backend_path = Path(dir_path).parent  # Path of the 'backend' folder
 
 # Path to save PlantUML text and image files
-result_path = os.path.join(dir_path, 'result_files')
+result_path = os.path.join(backend_path, 'media')
 
 # Path, name, and location of the PlantUML text file to save
 text_file_path = os.path.join(result_path, 'texts')
@@ -86,7 +87,7 @@ def create_uml_diagram_image(file_name):
 
 
 def cleanup_result_files(plantuml_text_file_name):
-    """Remove .plantuml and .png files that are named as given file name in result_files/diagrams/ and result_files/texts
+    """Remove .plantuml and .png files that are named as given file name in media/diagrams/ and media/texts
 
     :param plantuml_text_file_name: the name of the PlantUML text file
     """

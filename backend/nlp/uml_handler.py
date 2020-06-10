@@ -1,6 +1,5 @@
-import usecase_model
-import nlp
-import uml
+from backend.nlp import nlp, usecase_model
+from backend.nlp import uml
 
 
 class UMLHandler():
@@ -76,7 +75,7 @@ class UMLHandler():
         return is_successful
 
     def cleanup_plantuml_files(self, plantuml_text_file_name):
-        """Remove '.plantuml' and '.png' plantuml files that are named as given file name in result_files/diagrams/ and result_files/texts
+        """Remove '.plantuml' and '.png' plantuml files that are named as given file name in media/diagrams/ and media/texts
 
         :param plantuml_text_file_name: the name of the PlantUML text file
         """
