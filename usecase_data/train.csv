@@ -194,3 +194,7 @@ quote can discount., (quote) .> (discount) : extends
 quote extends discount., (quote) .> (discount) : extends
 quote require check the customer information., (quote) .> (check the customer) : include
 sales representative refer to a product classification., sales representative -- (refer) : a product classification
+User name Kim start the system.,User <<Kim>> // User -- (start system)
+User name Sujan enter the notice board.,User <<Sujan>> // User -- (enter notice board)
+"User eats food, pays for food and drink.",User -- (eat food) // User -- (pat for food) // User -- (drink)
+Customer and clerk check out together.,Customer -- (check out) // (check out) -- Clerk
