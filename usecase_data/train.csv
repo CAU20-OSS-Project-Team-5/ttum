@@ -96,26 +96,25 @@ Jin may recall temporarily saved files.,Jin --  (recall temporarily saved files)
 My daughter can recall files in temporary storage.,My daughter  -- (recall files) : in temporary storage
 He recalls letters in temporary storage.,He -- (recall letters) : from temporary storage
 He can receive letters from other users.,He --  (receive letters) : from other users
-She should log in to see what other users gave to her., 
-I have to log in to watch that other users gave letters to me.,
-Lee logs in to see what he received from other users.,
-Kim log in to see the letters he received.,
-Sexy guy sungmin logs in to see what he received.,
-Sexy girl seungjun logs in to see what he received from others.,
-Lg twins kimhyunsoo sends other user a love letter.,
-Zion t have to enter the password before sending letters.,
-All have to log in to use the system.,
-All can send messages to other users.,
-All can receive letters from other users.,
-All can recall saved file from cloud.,
-All can recall saved file from storage.,
-All can temporarily save messages in temporary storage.,
-She needs public certificate to log in.,
-He needs public certificate to log in.,
-I need certificate to send messages.,
-Kim needs password to send message.,
-She needs passport to delete storage.,
-<<<<<<< Updated upstream
+User should log in to see what other users gave to her., User -- (login) // (see what user received) .>(login) : includes
+User have to log in to watch that other users gave letters to user.,User -- (login) // (watch letters that are given) .> (login) : includes
+Lee logs in to see what he received from other users.,Lee -- (login)  // (see what user received) .> (login) : includes
+Kim log in to see the letters he received.,Kim --  (login)  // (see letters) .> (login) : includes
+Sungmin logs in to see what he received.,Sungmin -- (login) // (see what user received) .> (login) : includes
+Seungjun logs in to see what he received from others.,Seungjun -- (login) // (see what user received) .> (login) : includes
+Kimhyunsoo sends other user a love letter.,Kimhyunsoo -- (send love letter)
+Zion have to enter the password before sending letters.,Zion -- (send letters) // (send letters) .>(enter password) : includes
+All have to log in to use the system.,All -- (use the system) // (use the system) .> (login) : includes
+All can send messages to other users.,All -- (send messages)
+All can receive letters from other users.,All -- (receive letters)
+All can recall saved file from cloud.,All -- (recall saved file) : from cloud
+All can recall saved file from storage.,All -- (recall saved file) : from storage
+All can temporarily save messages in temporary storage.,All -- (temporarily save messages) : in temporary storage
+Professor needs public certificate to log in.,Professor -- (login) // (login) .> (enter public certificate) : includes
+Students needs public certificate to log in.,Students -- (login) // (login) .> (enter public certificate) : includes
+Kim need certificate to send messages.,Kim -- (send messages) // (send messages) .> (enter certificate) : includes
+Kim needs password to send message.,Kim -- (send messages) // (send messages) .> (enter password) : includes
+She needs passport to delete storage.,She -- (delete storage) // (delete storage) .> (enter passport) : includes
 Professor gives assignments.,Professor -- (give assignments)
 Professors give assignments.,Professor -- (give assignments)
 Professors can give assignments.,Professor -- (give assignments)
