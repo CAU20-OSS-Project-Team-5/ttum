@@ -198,3 +198,45 @@ User name Kim start the system.,User <<Kim>> // User -- (start system)
 User name Sujan enter the notice board.,User <<Sujan>> // User -- (enter notice board)
 "User eats food, pays for food and drink.",User -- (eat food) // User -- (pat for food) // User -- (drink)
 Customer and clerk check out together.,Customer -- (check out) // (check out) -- Clerk
+Waiter receives order.,Waiter -- (receive orders)
+Waiter receives orders.,Waiter -- (receive orders)
+Waiters receive orders.,Waiter -- (receive orders)
+The waiter receives order.,Waiter -- (receive orders)
+The waiter receives orders.,Waiter -- (receive orders)
+The waiters receive orders.,Waiter -- (receive orders)
+Client eats food.,Client -- (eat food)
+Clients eat food.,Client -- (eat food)
+The client eats food.,Client -- (eat food)
+The clients eat food.,Client -- (eat food)
+Chef cooks food.,Chef -- (cook food)
+The chef cooks food.,Chef -- (cook food)
+Chefs cook food.,Chef -- (cook food)
+The chefs cook food.,Chef -- (cook food)
+Waiter serves food.,Waiter -- (serve food)
+Waiters serve food.,Waiter -- (serve food)
+The waiter serves food.,Waiter -- (serve food)
+The waiters serve food.,Waiter -- (serve food)
+Serving wine extends serving food.,(serve wine) .> (serve food) : extends
+Serving wines extends serving food.,(serve wine) .> (serve food) : extends
+Drinking wine extends eating food.,(drink wine) .> (eat food) : extends
+Drinking wines extends eating food.,(drink wine) .> (eat food) : extends
+Client pays for food.,Client -- (pay for food)
+Client pays for the food.,Client -- (pay for food)
+Clients pay for food.,Client -- (pay for food)
+Clients pay for the food.,Client -- (pay for food)
+The client pays for food.,Client -- (pay for food)
+The client pays for the food.,Client -- (pay for food)
+The clients pay for food.,Client -- (pay for food)
+The clients pay for the food.,Client -- (pay for food)
+Paying for wine extends paying for food if the wine is consumed.,(pay for wine) .> (pay for food) : extends
+Paying for wines extends paying for food if the wines are consumed.,(pay for wine) .> (pay for food) : extends
+Paying for wine extends paying for food if  the wine was consumed.,(pay for wine) .> (pay for food) : extends
+Paying for wines extends paying for food if the wines were consumed.,(pay for wine) .> (pay for food) : extends
+Paying for food means paying for wine as well if the wine is consumed.,(pay for wine) .> (pay for food) : extends
+Paying for food means paying for wines as well if the wines are consumed.,(pay for wine) .> (pay for food) : extends
+Paying for food means paying for wine as well if the wine was consumed.,(pay for wine) .> (pay for food) : extends
+Paying for food means paying for wines as well if the wines were consumed.,(pay for wine) .> (pay for food) : extends
+Paying for the food means paying for the wine as well if the wine is consumed.,(pay for wine) .> (pay for food) : extends
+Paying for the food means paying for the wines as well if the wines are consumed.,(pay for wine) .> (pay for food) : extends
+Paying for the food means paying for the wine as well if the wine was consumed.,(pay for wine) .> (pay for food) : extends
+Paying for the food means paying for the wines as well if the wines were consumed.,(pay for wine) .> (pay for food) : extends
