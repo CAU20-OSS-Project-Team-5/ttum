@@ -6,10 +6,10 @@ Help extends checkout.,(help) .> (checkout) : extends
 Checkout is done by clerk.,(checkout) -- Clerk
 User does writing.,User -- (write)
 Writing is done by User.,User -- (write)
-User does update.,User -- (update) 
-Update is done by user.,User -- (update) 
-User reads.,User -- (read) 
-Reading is done by user.,User -- (read) 
+User does update.,User -- (update)
+Update is done by user.,User -- (update)
+User reads.,User -- (read)
+Reading is done by user.,User -- (read)
 The writes requires login.,(Write) .> (Login) : include
 The writes need to login.,(Write) .> (Login) : include
 The updateing requires login.,(Update) .> (Login) : include
@@ -42,7 +42,7 @@ Immediate transfer requires Balance inquiry.,(Immediate transfer) .> (Balance in
 Immediate transfer need to Balance inquiry.,(Immediate transfer) .> (Balance inquiry) : include
 Immediate transfer requires limit inquiry.,(Automatic transfer) .> (Limit inquiry) : include
 Immediate transfer need to limit inquiry.,(Automatic transfer) .> (Limit inquiry) : include
-Additional transfer extends immediate transfer.,(Additional transfer) .> (Immediate transfer) : extends  
+Additional transfer extends immediate transfer.,(Additional transfer) .> (Immediate transfer) : extends
 Automatic transfer inherits immediate transfer.,(Automatic transfer) --|> (Immediate transfer)
 The customer takes out cash.,customer -- (withdraw)
 Withdrawal requires login.,(withdrawal) .> (login) : include
@@ -72,7 +72,7 @@ She pushes the button.,She -- (push button)
 He pushes the button.,He  -- (push button)
 Yang pushes the button.,Yang  -- (push button)
 I push the button.,I  --  (push button)
-I touch two buttons at the same time.,I  -- (touch two buttons) : at the same time 
+I touch two buttons at the same time.,I  -- (touch two buttons) : at the same time
 She touches three buttons respectively.,She -- (touche three buttons) : respectively
 Lee writes a letter.,Lee --  (writes a letter)
 Park make a letter.,Park -- (make a letter)
@@ -96,7 +96,7 @@ Jin may recall temporarily saved files.,Jin --  (recall temporarily saved files)
 My daughter can recall files in temporary storage.,My daughter  -- (recall files) : in temporary storage
 He recalls letters in temporary storage.,He -- (recall letters) : from temporary storage
 He can receive letters from other users.,He --  (receive letters) : from other users
-User should log in to see what other users gave to her., User -- (login) // (see what user received) .>(login) : includes
+User should log in to see what other users gave to her.,User -- (login) // (see what user received) .>(login) : includes
 User have to log in to watch that other users gave letters to user.,User -- (login) // (watch letters that are given) .> (login) : includes
 Lee logs in to see what he received from other users.,Lee -- (login)  // (see what user received) .> (login) : includes
 Kim log in to see the letters he received.,Kim --  (login)  // (see letters) .> (login) : includes
@@ -184,16 +184,16 @@ sign up is requested from user to system.,user -- (sign up) : for Login
 system show member terms to user.,system -> (show) :
 receipt worker can do Telecom company product receipt function.,receipt worker -- (receive)
 Order manager order the box .,order manager -- (order)
-Inventory management system check the inventory for order., Inventory management system -- (check) : to order\n
-Customer management system check the customer information., Customer management -- (check) : the customer information
-order require check the inventory ,(order) .> (check the inventory) : include
-order require check the customer information., (order) .> (check the customer) : include
-Sales representative inherits order manager., Sales representative --|> order manager
-Sales representative quote for order., Sales representative - (Quotation)
-quote can discount., (quote) .> (discount) : extends
-quote extends discount., (quote) .> (discount) : extends
-quote require check the customer information., (quote) .> (check the customer) : include
-sales representative refer to a product classification., sales representative -- (refer) : a product classification
+Inventory management system check the inventory for order.,Inventory management system -- (check) : to order\n
+Customer management system check the customer information.,Customer management -- (check) : the customer information
+order require check the inventory,(order) .> (check the inventory) : include
+order require check the customer information.,(order) .> (check the customer) : include
+Sales representative inherits order manager.,Sales representative --|> order manager
+Sales representative quote for order.,Sales representative - (Quotation)
+quote can discount.,(quote) .> (discount) : extends
+quote extends discount.,(quote) .> (discount) : extends
+quote require check the customer information.,(quote) .> (check the customer) : include
+sales representative refer to a product classification.,sales representative -- (refer) : a product classification
 User name Kim start the system.,User <<Kim>> // User -- (start system)
 User name Sujan enter the notice board.,User <<Sujan>> // User -- (enter notice board)
 "User eats food, pays for food and drink.",User -- (eat food) // User -- (pat for food) // User -- (drink)
@@ -240,3 +240,21 @@ Paying for the food means paying for the wine as well if the wine is consumed.,(
 Paying for the food means paying for the wines as well if the wines are consumed.,(pay for wine) .> (pay for food) : extends
 Paying for the food means paying for the wine as well if the wine was consumed.,(pay for wine) .> (pay for food) : extends
 Paying for the food means paying for the wines as well if the wines were consumed.,(pay for wine) .> (pay for food) : extends
+issue book require check valid member., (issue book) .> (check valid member) : include
+issue book's precondition is check valid member., (issue book) .> (check valid member) : include
+issue book require check book's limit.,(issue book) .> (check booklimit) : include
+issue book require check book's availability.,(issue book) .> (check book's availability) : include
+librarian issue book.,librarian -- (issue book)
+book is issued by librarian.,(issue book) -- librarian
+return book require fine calculate.,(return book) .> (fine calculate) : include
+member return book he rendted.,member -- (return book)
+renew require due date.,(renew) .> (due date) : include
+librarian often renew the duration.,librarian -- (renew the duration)
+librarian maintain records.,librarian -- (maintain records)
+member also maintain records too.,member -- (maintain records)
+student can be member.,student --|> member
+student inherits member.,student --|> member
+teaching staff also can be member too.,teaching staff --|> member
+teaching staff inherits member.,teaching staff --|> member
+Non-teaching staff also can be member.,Non-teaching staff --|> member
+Non-teaching staff inherits member.,Non-teaching staff --|> member
