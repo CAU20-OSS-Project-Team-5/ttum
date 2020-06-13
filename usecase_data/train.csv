@@ -96,25 +96,22 @@ Jin may recall temporarily saved files.,Jin --  (recall temporarily saved files)
 My daughter can recall files in temporary storage.,My daughter  -- (recall files) : in temporary storage
 He recalls letters in temporary storage.,He -- (recall letters) : from temporary storage
 He can receive letters from other users.,He --  (receive letters) : from other users
-User should log in to see what other users gave to her.,User -- (login) // (see what user received) .>(login) : includes
-User have to log in to watch that other users gave letters to user.,User -- (login) // (watch letters that are given) .> (login) : includes
-Lee logs in to see what he received from other users.,Lee -- (login)  // (see what user received) .> (login) : includes
-Kim log in to see the letters he received.,Kim --  (login)  // (see letters) .> (login) : includes
-Sungmin logs in to see what he received.,Sungmin -- (login) // (see what user received) .> (login) : includes
-Seungjun logs in to see what he received from others.,Seungjun -- (login) // (see what user received) .> (login) : includes
+User should log in to see what other users gave to her.,User -- (login) : to see what user received)
+User have to log in to watch that other users gave letters to user.,User -- (login) : to watch letters that are given
+Lee logs in to see what he received from other users.,Lee -- (login) : to see what user received
+Kim log in to see the letters he received.,Kim --  (login) : to see letters
+User logs in to see what he received.,User -- (login) : to see what user received
+User logs in to see what he received from others.,User -- (login) : to see what user received
 Kimhyunsoo sends other user a love letter.,Kimhyunsoo -- (send love letter)
-Zion have to enter the password before sending letters.,Zion -- (send letters) // (send letters) .>(enter password) : includes
-All have to log in to use the system.,All -- (use the system) // (use the system) .> (login) : includes
+Zion have to enter the password before sending letters.,Zion -- (enter password) : to send letters
+All have to log in to use the system.,All -- (login) : to use system
 All can send messages to other users.,All -- (send messages)
 All can receive letters from other users.,All -- (receive letters)
 All can recall saved file from cloud.,All -- (recall saved file) : from cloud
 All can recall saved file from storage.,All -- (recall saved file) : from storage
 All can temporarily save messages in temporary storage.,All -- (temporarily save messages) : in temporary storage
-Professor needs public certificate to log in.,Professor -- (login) // (login) .> (enter public certificate) : includes
-Students needs public certificate to log in.,Students -- (login) // (login) .> (enter public certificate) : includes
-Kim need certificate to send messages.,Kim -- (send messages) // (send messages) .> (enter certificate) : includes
-Kim needs password to send message.,Kim -- (send messages) // (send messages) .> (enter password) : includes
-She needs passport to delete storage.,She -- (delete storage) // (delete storage) .> (enter passport) : includes
+Professor needs public certificate to log in.,Professor -- (login) : need certificate
+Students needs public certificate to log in.,Students -- (login) : need certificate
 Professor gives assignments.,Professor -- (give assignments)
 Professors give assignments.,Professor -- (give assignments)
 Professors can give assignments.,Professor -- (give assignments)
@@ -181,7 +178,7 @@ system check member whether he or she is Existing member.,system -- (check) : wh
 he is checked by system.,(check) -- system : whether\nhe or she is\nExisting member
 User request sign up for system.,user -- (sign up) : for Login
 sign up is requested from user to system.,user -- (sign up) : for Login
-system show member terms to user.,system -> (show) :
+system show member terms to user.,system -> (show) : member terms
 receipt worker can do Telecom company product receipt function.,receipt worker -- (receive)
 Order manager order the box .,order manager -- (order)
 Inventory management system check the inventory for order.,Inventory management system -- (check) : to order\n
@@ -194,10 +191,12 @@ quote can discount.,(quote) .> (discount) : extends
 quote extends discount.,(quote) .> (discount) : extends
 quote require check the customer information.,(quote) .> (check the customer) : include
 sales representative refer to a product classification.,sales representative -- (refer) : a product classification
-User name Kim start the system.,User <<Kim>> // User -- (start system)
-User name Sujan enter the notice board.,User <<Sujan>> // User -- (enter notice board)
-"User eats food, pays for food and drink.",User -- (eat food) // User -- (pat for food) // User -- (drink)
-Customer and clerk check out together.,Customer -- (check out) // (check out) -- Clerk
+User name is Kim.,User <<Kim>>
+User start the system.,User -- (start system)
+User name Sujan,User <<Sujan>>
+User enters the notice board.,User -- (enter notice board)
+"User eats food, pays for food and drink.",User -- (eat food\npat for food\ndrink)
+Customer and clerk check out together.,Customer&Clerk -- (check out) : together
 Waiter receives order.,Waiter -- (receive orders)
 Waiter receives orders.,Waiter -- (receive orders)
 Waiters receive orders.,Waiter -- (receive orders)
@@ -258,3 +257,102 @@ teaching staff also can be member too.,teaching staff --|> member
 teaching staff inherits member.,teaching staff --|> member
 Non-teaching staff also can be member.,Non-teaching staff --|> member
 Non-teaching staff inherits member.,Non-teaching staff --|> member
+User can select one of many buttons.,User -- (select one button)
+Button1 means registration.,(pushing button1) << registration >>
+Pushing button32 means registration.,(pushing button32) << registration >>
+Touching button1 means register.,(pushing button1) << registration >>
+Select button for next step.,User -- (select button) : for next step
+User have to make choice to go next step.,User -- (make choice) : to go next step
+User have to choose one to go next step.,User -- (choose one) : to go next step
+User must select one of them.,User -- (select one)
+User may choose one for next step.,User -- (choose one) : for next step
+User have to click for next stage.,User -- (click) : for next stage
+User can’t use system if there’s any crime report.,User -- (use system) : if there’s any crime report
+User can use item if user level under 10.,User -- (use item) : if user level under 10
+Item can’t be used if user level is over 10.,User -- (use item) : if user level under 10
+User can't use item if his level is over 20.,User -- (use item) : if user level under 20
+User can't use item if user level over 30.,User -- (use item) : if user level under 30
+Item can be used if user level is over 40.,User -- (use item) : if user level over 40
+Item can be utilized when user’s level exceeds 50.,User -- (utilize item) : when level exceeds 50
+User can breed pet when user’s level exceeds 70.,User -- (breed pet) : when level exceeds 70
+User can't breed pet until he exceeds level 80.,User -- (breed pet) : when level exceeds 80
+User can't be a pet owner until level 100.,User -- (breed pet) : when level exceeds 100
+Administrator can make use of all items.,Administrator -- (use all item)
+User whose level is over 30 can talk.,User -- ( talk ) : when level exceeds 30
+User level under 40 can’t chat.,User -- ( chat ) : when level exceeds 40
+User would make use of item.,User -- (use item) 
+User could make use of item.,User -- (use item) 
+User may use items.,User -- (use item) 
+User could make use of items.,User -- (use item) 
+User should utilize items on complex map.,User -- (use item) : on complex map
+Users could make items when their level goes over 100.,User -- (make items) : when level goes over 100
+"If user’s level exceeds 100, an item can be created by user.",User -- (create item) : when level exceeds 100
+User can wear equipment when over level 10.,User -- (wear equipment) : when level over 10
+User can't wear equipment until level 10.,User -- (wear equipment) : when level exceeds 10
+User can wear equipment as soon as user reach level 10.,User -- (wear equipment) : when level reaches 10
+User can equip as soon as user reach level 10.,User -- (equip) : when level reaches 10
+"If user level is over 100, user can make item.",User -- (make item) : when level exceeds 100
+Item can be created by user when user’s level exceeds 100.,User -- (create item) : when level exceeds 100
+Item can be created when user’s level exceeds 100.,User -- (create item) : when level exceeds 100
+Item can be created by user only if when user’s level exceeds 900.,User -- (create item) : when level exceeds 900
+User must have an account number to enter system.,User -- (enter system) : have an account number
+User should got an account number to enter system.,User  --  (enter system) : got an account
+Button2 is for payment.,(choose Button2) << payment >>
+Button27 is for downloading files.,(choose button27) <<downloading files >>
+Button32 means closing side bar.,(choose button32) << closing side bar >>
+Touching button32 means leaving system.,(touch button32) .> (leaving system) :extends
+Finger movements means skipping.,(move fingers) .> (skip) : extends
+Finger movements means going to next step.,(move fingers) .>(go to next step) :extends
+Finger movements can be translated into skipping.,(move fingers) .> (skip) : extends
+Widening two fingers means zooming in.,(widen two fingers) .> (zoom in) : extends
+User widen two fingers to zoom in.,User  --  (widen two fingers) : to zoom in
+"When user want to zoom in the screen, widen two fingers.",(widen two fingers) .> (zoom in) : extends
+"When user want to zoom in the screen, spread two fingers.",(spread two fingers) .> (zoom in) : extends
+"When user want to zoom in the screen, user widen two fingers.",(widen two fingers) .> (zoom in) : extends
+"When user want to zoom in the screen, user spread two fingers.",(spread two fingers) .> (zoom in) : extends
+User may spread two fingers to zoom in.,User --  (spread two fingers) : to zoom in
+User spread 2 fingers to zoom in display.,User --  (spread two fingers) : to zoom in display
+Narrowing two fingers means zooming out.,(narrow two fingers) .> (zoom out) : extends
+User narrow two fingers to zoom out.,User --  (narrow two fingers) : to zoom out
+"When user want to zoom out, user narrow two fingers.",(narrow two fingers) .> (zoom out) : extends
+User who want to zoom out have their fingers narrowed.,User --  (narrow fingers) : to zoom out
+The user close up his finger because he wanted zoom out.,User --  ( close up fingers) : to zoom out
+User want to zoom out so the user have user’s fingers closed up.,User --  (close up fingers) : to zoom out
+User close up his fingers when he want his screen zoom out.,User --  (close up fingers) : to zoom out
+User narrowed 2 fingers so that he zoom out his screen.,User --  (narrowed two fingers) : to zoom out screen
+User swipe three fingers to the right to display previous screen.,User --  (swipe three fingers) : to the right\n to display previous screen
+User swipe three fingers to the right to go back to previous.,User --  (swipe three fingers) : to the right\n to go back previous
+User swipe three fingers to right to return back.,User --  (swipe three fingers) : to the right\n to return back
+"When user need return to previous, user swipe three fingers.",(swipe three fingers) .> (return to previous) : extends
+User can press the button long to hold choice.,User --  (press button long) : to hold choice
+Long pressing button means hold.,(long press button) .> (hold) : extends
+"When user need hold, user press button long.",(long press button) .> (hold) : extends
+"When user unfold laptop, operating system starts.",(unfold laptop) .> (start OS) : extends
+Unfolding laptop means starting OS.,(unfold laptop) .> (start OS) : extends
+Swiping up the screen means not selecting.,(swipe up screen) .> (not selecting) : extends
+"When user don’t want to select, user may swipe up the screen.",(swipe up screen) .> (not selecting) : extends
+"When user don't want to make choice, user could swipe up the screen.",(swipe up screen) .> (not selecting) : extends
+User who do not want to make a choice swipe up the screen.,User -- (swipe up screen) : don’t want to make a choice
+"When user don't want to choose, user could swipe the display upside.",(swipe up screen) .> (not selecting) : extends
+User may swipe up the display whenever he don’t want to make a choice.,User -- (swipe up screen) : not wanting to make a choice
+User can swipe the screen up if he don’t want to select one.,User --  (swipe up screen) : don’t want to select one
+Swiping down the screen means choosing.,(swipe down screen) .> (choosing) : extends
+"When user want to choose, user may swipe down the screen.",(swipe down screen) .> (choosing) : extends
+"When user want to make choice, user could swipe the screen down.",(swipe down screen) .> (choosing) : extends
+User swipe down the screen when he want to choose.,User -- (swipe down screen) :when want to choose
+User may swipe the display down if he want to make choice.,User -- (swipe down screen) :when want to make choice
+User have to touch at the right timing for score.,User -- (touch at right timing) : for score
+User touch the screen twice in succession to turn screen on.,User -- (touch screen twice in succession) :to turn screen on
+Touching the screen twice in succession means turning on the screen.,(touch screen twice in succession) .> (turn on the screen) : extends
+Touching the screen twice in succession can be translated into turning on the screen.,(touch screen twice in succession) .> (turn on the screen) : extends
+Touching the screen twice in succession is equal to turning on the screen.,(touch screen twice in succession) .> (turn on the screen) : extends
+Item is created by shaking phone.,(shake phone) .> (create item) : extends
+Shaking phone means creating item.,(shake phone) .> (create item) : extends
+Shaking phone provokes birth of item.,(shake phone) .> (create item) : extends
+Shaking phone induces making birth of item.,(shake phone) .> (create item) : extends
+Shaking phone can be translated to making item.,(shake phone) .> (create item) : extends
+Score goes up when user shake phone.,(shake phone) .> (increase score) : extends
+Shaking phone means increased score.,(shake phone) .> (increase score) : extends
+Shaking phone may be translated to increased score.,(shake phone) .> (increase score) : extends
+Shaking phone provokes increased score.,(shake phone) .> (increase score) : extends
+Shaking phone induces score increasing.,(shake phone) .> (increase score) : extends
