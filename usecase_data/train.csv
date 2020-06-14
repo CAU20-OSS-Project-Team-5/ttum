@@ -1,4 +1,4 @@
-﻿src,tar
+src,tar
 The customer does checkout.,Customer -- (checkout)
 The checkouts require payment.,(checkout) .> (payment) : include
 The checkouts need to payment.,(checkout) .> (payment) : include
@@ -378,5 +378,23 @@ making payment arrangement demands making offer., (making payment arrangement) .
 making offer must be done before making payment arrangement., (making offer) <. (making payment arrangement) : include
 making new customer offer need creating new customer., (making new customer) .> (creating new customer) : include
 function to make old customer offer could have function to update customer information., (update customer information) .> (make old customer offer) : extends 
-
- 
+Player can take match up with others., Player -- (take match up) : with others
+ Player can send confrontation request to another player., Player -- (send confrontation request) : to another player
+Player can send match requests to other player., Player -- (send match request) : to other player
+Player send match request anytime., Player -- (send match request) : anytime
+Player can either accept or reject the showdown., Player -- (accept or reject showdown)
+Player accept or reject the match request., Player -- (accept or reject match request)
+Player can reject confrontation request., Player -- (reject confrontation request)
+Players can observe matches from other players., Player -- (observe match)
+Wearing AirPods causes the system to start.,(Wear Airpods) .> (start system) : extends
+Wearing AirPods induces the starting of program.,(Wear Airpods) .> (start system) : extends
+The system freezes when AirPods is removed from ears.,(remove AirPods from ears) .> ( freeze system ) : extends
+Removing AirPods from ears means system freezing.,(remove AirPods from ears) .> ( freeze system ) : extends
+Press and hold the AirPods button to activate the noise canceling function.,(press and hold AirPods button) .> ( activate noise canceling) : extends
+Pressing and holding AirPods button means activating noise canceling function.,(press and hold AirPods button) .> ( activate noise canceling) : extends
+Pressing and holding Airpods button arouses noise canceling function.,(press and hold AirPods button) .> ( activate noise canceling) : extends
+Noise canceling function can be activated by pressing AirPods button.,(press and hold AirPods button) .> ( activate noise canceling) : extends
+Player cannot play multiple games at the same time., Player -- (play game) : one at a time
+Player can’t make progress of multiple matches at the same time., Player -- (make progress of game) : one at a time
+Player can play only one match at the same time., Player -- (play match) : only one at a time
+Pressing Exit button means losing.,(press exit button) .> (lose game) : extends
