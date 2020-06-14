@@ -1,4 +1,4 @@
-src,tar
+﻿src,tar
 The customer does checkout.,Customer -- (checkout)
 The checkouts require payment.,(checkout) .> (payment) : include
 The checkouts need to payment.,(checkout) .> (payment) : include
@@ -12,8 +12,8 @@ User reads.,User -- (read)
 Reading is done by user.,User -- (read)
 The writes requires login.,(Write) .> (Login) : include
 The writes need to login.,(Write) .> (Login) : include
-The updateing requires login.,(Update) .> (Login) : include
-The updateing need to login.,(Update) .> (Login) : include
+The updating requires login.,(Update) .> (Login) : include
+The updating need to login.,(Update) .> (Login) : include
 Uploading picture extends write.,(Upload picture) .> (write) : extends
 Uploading picture can use write.,(Upload picture) .> (write) : extends
 Someone does inquire something.,Someone -- (inquire)
@@ -356,3 +356,27 @@ Shaking phone means increased score.,(shake phone) .> (increase score) : extends
 Shaking phone may be translated to increased score.,(shake phone) .> (increase score) : extends
 Shaking phone provokes increased score.,(shake phone) .> (increase score) : extends
 Shaking phone induces score increasing.,(shake phone) .> (increase score) : extends
+Professor evaluates student's grade.,Professor -- (evaluate)
+student's grade is evaluated by professor., (evaluate) -- professor
+management usually accepts offer., management -- (accept offer)
+manage offers are needed to accept offer., (manage offers) <. (accept offer) : include
+accepting offer requires managing offers., (accepting offer) .> (managing offers) : include
+salesperson records sales contract., salesperson -- (records sales contract)
+sales contract are recorded by salesperson., salesperson -- (record sales contract)
+recording sales contract requires manage offers., (recording salses contract) .> (manage offers) : include  
+manage offers is need to record sales contract., (manage offers) <. (record sales contract) : include
+old customer is also customer., old customer --|> customer 
+old customer inherits customer., old customer --|> customer
+New customer is also customer., New customer --|> customer
+New customer inherits custoemr., New customer --|> customer
+New customer makes new customer offer., New customer -- (makes new customer offer)
+making new customer offer requires create new customer., (making new customer offer) .> (create new customer) : include
+creating new customer is needed to make new customer offer., (creating new customer) <. (make new customer offer) : include
+making new customer offer is another version of make offer., (making new customer offer) --|> (make offer)
+making new customer offer is one of the making offer., (making new customer offer) --|> (making offer)
+making payment arrangement demands making offer., (making payment arrangement) .> (making offer) : include
+making offer must be done before making payment arrangement., (making offer) <. (making payment arrangement) : include
+making new customer offer need creating new customer., (making new customer) .> (creating new customer) : include
+function to make old customer offer could have function to update customer information., (update customer information) .> (make old customer offer) : extends 
+
+ 
