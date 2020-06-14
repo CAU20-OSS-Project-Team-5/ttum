@@ -398,3 +398,13 @@ Player cannot play multiple games at the same time., Player -- (play game) : one
 Player can’t make progress of multiple matches at the same time., Player -- (make progress of game) : one at a time
 Player can play only one match at the same time., Player -- (play match) : only one at a time
 Pressing Exit button means losing.,(press exit button) .> (lose game) : extends
+User can post on the bulletin board., User -- (post on the bulletin board)
+The user can delete the post., User -- (delete the post)
+The bulletin board is maintained by the operator., Operator -- ( maintain bulletin board )
+The operator can delete posts without the consent of the publisher., Operator -- ( delete post ) : without publisher’s consent
+The author of the deleted post is notified of the deletion of the post.,System -- ( notify deletion of post ) : to author of post
+The author of the article may mark a protest against deletion., User -- ( mark a protest against deletion )
+Protest can be rejected by the operator., Operator -- ( reject protest )
+The operator may accept the protest., Operator -- ( accept protest )
+User will be warned if user’s post is deleted.,(delete post) .> (send warning to user)
+User cannot use the system if he receives three or more warnings.,(receives warning) .> (use system) : if warning under 3 times
