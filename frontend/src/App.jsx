@@ -1,5 +1,6 @@
 import "./App.css";
 import React from "react";
+import axios from "axios";
 
 import { Image } from "react-bootstrap";
 import { Typography, Row, Col, Input, Button, Menu, Form } from "antd";
@@ -24,38 +25,55 @@ class App extends React.Component {
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextState !== this.state) return true;
-    else return false;
+    if (nextState !== this.state) {
+      console.log("update entered");
+      return true;
+    } else return false;
   }
 
-  callBackServer = () => {
-    fetch("http://127.0.0.1:8020/api/task-list/")
-      .then((response) => response.json())
-      .then((data) =>
-        this.setState({
-          take: data,
-        })
-      );
+  callBackServer = async () => {
+    let url = "http://127.0.0.1:8000/api/task-list/";
+    await axios.get(url).then((data) => {
+      console.log("backserver data : " + data);
+      this.setState({
+        take: data,
+      });
+    });
+    // fetch("http://127.0.0.1:8000/api/task-list/")
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("backresult : " + data);
+    //     this.setState({
+    //       take: data,
+    //     });
+    //   });
+    console.log(this.state.take);
   };
 
-  handleBackSubmit(event) {
-    var url = "http://127.0.0.1:8020/api/task-create/";
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(event.target.content.value),
-    })
-      .then((response) => {
-        this.setState({
-          take: response,
-        });
+  handleBackSubmit = async (event) => {
+    event.preventDefault();
+    const form_data = new FormData();
+    form_data.append("title", event.target.content.value);
+    // this.setState({
+    //   activeItem: {
+    //     id: null,
+    //     title: event.target.content.value,
+    //   },
+    // });
+    var url = "http://127.0.0.1:8000/api/task-create/";
+    await axios
+      .post(url, form_data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
       })
-      .catch(function (error) {
-        console.log("ERROR:", error);
+      .then((res) => {
+        console.log("result : " + res.data);
+      })
+      .catch((res) => {
+        console.log(res);
       });
-    console.log(this.state.take);
+      this.callBackServer();
   }
 
   handleSubmit = (e) => {
@@ -65,9 +83,10 @@ class App extends React.Component {
   };
 
   render() {
-    var tasks = this.state.take;
+    const { take } = this.state;
+    console.log(take);
     return (
-      <div onSubmitCapture={(e) => this.handleSubmit(e)}>
+      <div onSubmitCapture={(e) => this.handleBackSubmit(e)}>
         <Row
           style={{
             backgroundColor: "#F0F8FF",
@@ -156,18 +175,26 @@ class App extends React.Component {
               }}
             >
               <Title style={{ color: "#00008B" }}>UML Diagram</Title>
-              <div>
-                {tasks.map(function (task, index) {
-                  return (
-                    <div key={index}>
-                      <Image
-                        src={"http://127.0.0.1:8020" + task.images}
-                        style={{ width: "500px" }}
-                      ></Image>
-                    </div>
-                  );
-                })}
-              </div>
+              {take.data ? (
+                <Image
+                  src={"http://127.0.0.1:8000" + take.data[0].images + "/?time=" + new Date()}
+                  style={{ width: "500px" }}
+                  key={take.data[0].id}
+                />
+              ) : (
+                <h>when null</h>
+              )}
+              {/* <Image src={"127.0.0.1:8000" + take.data.images} style={{ width: "500px" }} /> */}
+              {/* <div>
+                {take.map((take, index) => (
+                  <div key={index}>
+                    <Image
+                      src={"http://127.0.0.1:8000" + take.images}
+                      style={{ width: "500px" }}
+                    ></Image>
+                  </div>
+                ))}
+              </div> */}
             </div>
           </Col>
         </Row>
