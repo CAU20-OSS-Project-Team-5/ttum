@@ -418,3 +418,33 @@ Delivery needs address input to be approved.,User  --  ( address input ) : to be
 User presses the delivery completion button.,User  --  ( press delivery completion button )
 User press the delivery completion button.,User  --  ( press delivery completion button )
 Delivery is not started until the user completes the payment.,(start delivery)  .> (complete payment) : includes
+User can start video.,User  --  ( start video )
+User can play the video.,User  --  ( play video )
+User can restart video.,User  --  ( restart video )
+Touching button means video stop., ( touching button ) .> ( stop video ) : extends
+User can touches button to stop the video.,User -- (touch button) : to stop video
+Pressing button pauses the video.,( pressing button ) .> ( stop video ) : extends
+Touching button means pausing video.,( touching button ) .> ( stop video ) : extends
+User can pause video by touching button.,User -- (pause video) : by touching button
+User can stop video by touching button.,User -- (stop video) : by touching button
+User can share video link with sns.,User -- (share video link) : with sns
+User can share video link to others.,User -- (share video link)
+User increases volume by buttons.,User -- (increase volume) : by button
+User increases volume using buttons.,User -- (increase volume) : using button
+User touch and drag to select a sentence.,User -- (touch and drag) : to select sentence
+Touch and drag to select multiple words.,( touch and drag ) .> ( select multiple words ) : extends
+User can select multiple words.,User -- (select multiple words)
+Selecting multiple words can be done by touching and dragging.,(touch and drag) .> (select multiple words) : extends
+User may want to turn on the screen comfortably.,User -- (turn on the screen) 
+User can turn it on by touching the screen.,(touch screen) .> (turn on screen) : extends
+Touching the screen can turn it on.,(touch screen) .> (turn on screen) : extends
+User touches the screen to turn it on. ,(touch screen) .> (turn on screen) : extends
+Unfolding the phone  let the program starts.,(unfold phone) .> (start program) : extends
+Unfolding the phone  have the program starts.,(unfold phone) .> (start program) : extends
+Unfolding the phone  make the program starts.,(unfold phone) .> (start program) : extends
+Unfolding the phone  get the program starts.,(unfold phone) .> (start program) : extends
+Unfolding means starting.,(unfold) .> (start system) : extends
+Unfolding the phone induces the program starting.,(unfold phone) .> (start program) : extends
+Folding the phone means exit the program.,(fold phone) .> (exit program) : extends
+Folding is finishing.,(fold) .> (finish system) : extends
+User fold the phone to exit the program.,User -- (fold phone) : to exit program
