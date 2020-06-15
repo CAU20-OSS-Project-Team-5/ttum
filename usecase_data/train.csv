@@ -408,3 +408,13 @@ Protest can be rejected by the operator., Operator -- ( reject protest )
 The operator may accept the protest., Operator -- ( accept protest )
 User will be warned if user’s post is deleted.,(delete post) .> (send warning to user)
 User cannot use the system if he receives three or more warnings.,(receives warning) .> (use system) : if warning under 3 times
+User can order delivery.,User  --  (order delivery)
+User can place a delivery order.,User  --  (order delivery)
+User can cancel the delivery order.,User  --  (cancel delivery order)
+Delivery order can be canceled.,User  --  (cancel delivery order)
+User must enter the address to be delivered.,User  --  (enter address) : to be delivered
+User have to input the address to be delivered.,User  --  ( address input ) : to be delivered
+Delivery needs address input to be approved.,User  --  ( address input ) : to be approved
+User presses the delivery completion button.,User  --  ( press delivery completion button )
+User press the delivery completion button.,User  --  ( press delivery completion button )
+Delivery is not started until the user completes the payment.,(start delivery)  .> (complete payment) : includes
