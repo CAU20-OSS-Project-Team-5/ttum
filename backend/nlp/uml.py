@@ -34,7 +34,7 @@ def create_usecase_diagram_image(actor_text, relationship_text, usecase_file_nam
 left to right direction
 skinparam packageStyle rectangle
 """ + actor_text + """
-rectangle checkout {
+rectangle system {
 """ + relationship_text + """
 }
 @enduml

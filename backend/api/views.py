@@ -8,6 +8,7 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))))
 from backend.nlp.uml_handler import UMLHandler
+import uuid
 
 
 # Create your views here.
@@ -45,28 +46,61 @@ def taskCreate(request):
         serializer.save()
 
     task = Task.objects.last()  # 방금 추가한 데이터를 불러옴
+    
+    
+    # Create hash code
+    hash = uuid.uuid4().hex
+    hashed_plantuml_file_name = str(hash) + '.plantuml'
+    hashed_image_file_name = str(hash) + '.png'
+    print("Hashed file name: " + hashed_plantuml_file_name)
 
     uml_handler = UMLHandler(train_epoch=0)
+    
+    if task._type == "0":
+        # Convert paragraph into usecase diagram image
+        is_successful = uml_handler.convert_into_usecase_uml(task.title, usecase_file_name=hashed_plantuml_file_name)
+        url = os.path.join('.','media','texts',hashed_plantuml_file_name)
+        task.title = ""
+        with open(url, "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                task.title += line
+        task.image_name = str(hash)
+        task.images = os.path.join('..','media','diagrams',hashed_image_file_name)
+    if task._type == "1":
+        print(task.title)
+        print(task.image_name)   
+        # Update the usecase diagram image with user-updated PlantUML text
+        text = open(os.path.join('.','media','texts', task.image_name + '.plantuml'), 'w')
+        
+        text.write(task.title)
+        text.close()
+        
+        file_plantuml = task.image_name + '.plantuml'
+        
+        is_successful = uml_handler.update_usecase_uml(usecase_file_name=file_plantuml)
 
-    # Convert paragraph into usecase diagram image
-    is_successful = uml_handler.convert_into_usecase_uml(task.title)
+        file_image =  task.image_name + '.png'
+        
 
-    # Update the usecase diagram image with user-updated PlantUML text
-    is_successful = uml_handler.update_usecase_uml()
+        task.images = os.path.join('..','media','diagrams',file_image)
 
-
-    # task.title = definitions.image_path
-
-    #task.images = os.path.join('..','result_files','diagrams','usecase_diagram.png')
-    task.images = os.path.join('..','media','diagrams','usecase_diagram.png')
-    # task.title = os.path.join('usecase_diagram.png')
+    
+    print("Done updating the image with the new PlantUML text file.")
+    
     task.save()
-    # redirect('/api/detail/' + str(task.id))
+    
+    if task._type == "0":
+        if Task.objects.first():
+            task = Task.objects.first()
 
-
-    if Task.objects.first():
-        task = Task.objects.first()
-        task.delete()
+            # Cleanup usecase diagram images and texts from 'media/'
+            uml_handler.cleanup_plantuml_files(plantuml_text_file_name=task.image_name)
+            task.delete()
+    if task._type == "1":
+        if Task.objects.first():
+            task = Task.objects.first()
+            task.delete()
 
     return Response(serializer.data)
 

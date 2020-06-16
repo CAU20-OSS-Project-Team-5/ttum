@@ -19,6 +19,8 @@ class App extends React.Component {
     activeItem: {
       id: null,
       title: "",
+      image_name: "",
+      _type:"",
     },
     description:
       "this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. ",
@@ -32,35 +34,31 @@ class App extends React.Component {
   }
 
   callBackServer = async () => {
-    let url = "http://127.0.0.1:8000/api/task-list/";
+    let url = "http://127.0.0.1:8020/api/task-list/";
     await axios.get(url).then((data) => {
       console.log("backserver data : " + data);
       this.setState({
         take: data,
       });
     });
-    // fetch("http://127.0.0.1:8000/api/task-list/")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("backresult : " + data);
-    //     this.setState({
-    //       take: data,
-    //     });
-    //   });
-    console.log(this.state.take);
+    
+    console.log("whattheFuck:" ,this.state.take);
   };
 
   handleBackSubmit = async (event) => {
     event.preventDefault();
     const form_data = new FormData();
     form_data.append("title", event.target.content.value);
-    // this.setState({
-    //   activeItem: {
-    //     id: null,
-    //     title: event.target.content.value,
-    //   },
-    // });
-    var url = "http://127.0.0.1:8000/api/task-create/";
+    console.log("submit:" + event.target.content.value)
+    if(event.target.content.value.substring(0,9) == "@startuml") {
+      form_data.append("_type", "1");  // plantUML to image
+      form_data.append("image_name", this.state.images )
+      console.log("12345678910")
+    } else {
+      form_data.append("_type", "0");  // natural Language to image
+    }
+
+    var url = "http://127.0.0.1:8020/api/task-create/";
     await axios
       .post(url, form_data, {
         headers: {
@@ -73,7 +71,7 @@ class App extends React.Component {
       .catch((res) => {
         console.log(res);
       });
-      this.callBackServer();
+    this.callBackServer();
   }
 
   handleSubmit = (e) => {
@@ -126,9 +124,9 @@ class App extends React.Component {
             }}
           >
             <Title style={{ color: "#00008B" }}>Text Input</Title>
-            <Form style={{ align: "middle", justify: "center" }}>
+            <Form style={{ align: "middle", justify: "center", }}>
               <Form.Item>
-                <Input.TextArea
+                <textArea
                   name="content"
                   placeholder="Enter a title for your art"
                   style={{
@@ -146,22 +144,46 @@ class App extends React.Component {
                 Convert
               </Button>
             </Form>
-            <Typography
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: "10px",
-                border: "3px solid #6495ED",
-              }}
-            >
-              <Title style={{ color: "#00008B" }}>plantUML</Title>
-              <Paragraph>{this.state.description}</Paragraph>
-            </Typography>
-            <Button style={{ marginTop: "10px", marginBottom: "10px" }}>
-              convert from plantUML
-            </Button>
+            {
+                    take.data ? (
+                      
+                      this.state.images = take.data[0].image_name
+                    ) : (
+                        null
+                      )
+            }
+            <Form style={{ align: "middle", justify: "center", }}>
+              <Form.Item>
+                <Title style={{ color: "#00008B" }}>plantUML</Title>
+                <textArea
+                  name="content"
+                  style={{
+                    marginLeft: "10px",
+                    minHeight: "40vh",
+                    minWidth: "45vh",
+                  }}
+                  
+                >
+                  {
+                    take.data ? (
+                      take.data[0].title
+                      
+                    ) : (
+                        null
+                      )
+                  }
+                  
+                </textArea>
+              </Form.Item>
+              <Button
+                style={{ marginRight: "10px", marginBottom: "10px" }}
+                type="primary"
+                htmlType="submit"
+              >
+                convert from plantUML
+              </Button>
+            </Form>
+            
           </Col>
 
           <Col span={12}>
@@ -175,26 +197,28 @@ class App extends React.Component {
               }}
             >
               <Title style={{ color: "#00008B" }}>UML Diagram</Title>
-              {take.data ? (
-                <Image
-                  src={"http://127.0.0.1:8000" + take.data[0].images + "/?time=" + new Date()}
-                  style={{ width: "500px" }}
-                  key={take.data[0].id}
-                />
-              ) : (
-                <h>when null</h>
-              )}
-              {/* <Image src={"127.0.0.1:8000" + take.data.images} style={{ width: "500px" }} /> */}
-              {/* <div>
-                {take.map((take, index) => (
-                  <div key={index}>
-                    <Image
-                      src={"http://127.0.0.1:8000" + take.images}
-                      style={{ width: "500px" }}
-                    ></Image>
-                  </div>
-                ))}
-              </div> */}
+              <Paragraph
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "column",
+                  marginTop: "10px",
+                  border: "3px solid #6495ED",
+
+                }}
+              >
+                {take.data ? (
+                  <Image
+                    src={"http://127.0.0.1:8020" + take.data[0].images + "/?time=" + new Date()}
+                    style={{ width: "500px" }}
+                    key={take.data[0].id}
+                  />
+                ) : (
+                    <h>when null</h>
+                  )}
+                {}
+              </Paragraph>
             </div>
           </Col>
         </Row>
