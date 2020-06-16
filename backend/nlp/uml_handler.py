@@ -3,19 +3,23 @@ from backend.nlp import uml, usecase_model
 
 
 class UMLHandler():
-    def __init__(self, train_epoch=10):
+    def __init__(self, train_epoch=10, uml_mode='usecase'):
         """Initialize UMLHandler by reloading the trained model
 
         :param train_epoch: the number of epoch to train (if 0, there will be no training)
+        :param model: the UML model to use (default: 'usecase')
         """
-        self.model = usecase_model.Model()
+        if uml_mode is 'usecase':
+            self.model = usecase_model.Model()
 
-        # Train only if the given epoch is bigger than 0
-        if train_epoch > 0:
-            self.model.train(train_epoch)
+            # Train only if the given epoch is bigger than 0
+            if train_epoch > 0:
+                self.model.train(train_epoch)
 
-        # Restore checkpoints
-        self.model.restore_checkpoint()
+            # Restore checkpoints
+            self.model.restore_checkpoint()
+        else:
+            print("No model has been selected!")
 
     def convert_into_usecase_uml(self, paragraph, usecase_file_name='usecase_diagram.plantuml'):
         """Convert paragraph into usecase diagram image and save the image in the server
