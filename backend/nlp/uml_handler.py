@@ -9,7 +9,7 @@ class UMLHandler():
         :param train_epoch: the number of epoch to train (if 0, there will be no training)
         :param model: the UML model to use (default: 'usecase')
         """
-        if uml_mode is 'usecase':
+        if uml_mode == 'usecase':
             self.model = usecase_model.Model()
 
             # Train only if the given epoch is bigger than 0

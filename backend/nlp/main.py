@@ -1,7 +1,6 @@
 from backend.nlp.uml_handler import UMLHandler
 import uuid
 
-
 example_paragraph = u"""The customer does checkout.
 The checkouts require payment.
 Help extends checkout.
