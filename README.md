@@ -37,17 +37,8 @@ $ pip install -r requirements.txt       # Get packages using requirements.txt
 - Jupyter notebook 파일들이 담겨있는 폴더
 - Model test 및 학습 용도로 사용하면 됨
 
-### main.py
-- 메인 함수가 담겨있음
-- usecase_model의 Model 클래스 생성자를 호출
-- Model 클래스의 train 함수에 매개변수로 epoch 값을 넘기고, 해당 횟수만큼 학습
-- Model 클래스의 translate 함수로 사용자 입력을 번역함
+Django의 view.py 의 taskCreate(request)에서 입력된 문장을 이미지파일의 url 주소로 변환하여 주면 됨.
 
-### nlp.py
-- nltk 패키지를 불러와서 NLPHandler 클래스를 불러와 자연어 처리 관련 함수를 사용할 수 있음
-- 생성자가 nltk.download('all')을 실행하여 nltk data를 다운받음
-    - 다운받은 상태면 다운받지는 않지만 확인 메세지들이 콘솔창에 출력됨
-    - 추후에 미리 체크해서 다운 받을 필요가 없으면 출력하지 않도록 할 예정
 
 ### usecase_model.py
 - RNN의 파생 모델인 LSTM 모델이 적용된 Tensorflow model

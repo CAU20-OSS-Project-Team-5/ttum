@@ -10,19 +10,31 @@ import os
 import io
 import time
 
-path_to_file = "usecase_data/train.csv"
+from pathlib import Path
 
 
 class Model():
     def __init__(self):
-        en, pu = self.create_dataset(path_to_file, None)
+        self.train_path_name = ''
+        self.data_path_name = ''
+
+    def startModel(self):
+        self.dir_path = os.path.dirname(os.path.realpath(__file__))  # Path name of this module
+        self.training_checkpoints_path = os.path.join('training_checkpoints',
+                                                      self.train_path_name)  # Training checkpoints path name
+
+        self.backend_path = Path(self.dir_path).parent  # Path of the 'backend' folder
+        self.path_to_file = os.path.join(self.backend_path, 'nlp', self.data_path_name,
+                                         'train.csv')  # Location of the 'train.csv' file
+
+        en, pu = self.create_dataset(self.path_to_file, None)
         print(en[-1])
         print(pu[-1])
 
         # Limit the size of the dataset to experiment faster (optional)
         # Try experimenting with the size of that dataset
         num_examples = 30000
-        input_tensor, target_tensor, self.inp_lang, self.targ_lang = self.load_dataset(path_to_file, num_examples)
+        input_tensor, target_tensor, self.inp_lang, self.targ_lang = self.load_dataset(self.path_to_file, num_examples)
 
         # Calculate max_length of the target tensors
         self.max_length_targ, self.max_length_inp = target_tensor.shape[1], input_tensor.shape[1]
@@ -86,7 +98,7 @@ class Model():
             from_logits=True, reduction='none')
 
         # Checkpoints (Object-based saving)
-        self.checkpoint_dir = './training_checkpoints'
+        self.checkpoint_dir = os.path.join(self.dir_path, self.training_checkpoints_path)
         self.checkpoint_prefix = os.path.join(self.checkpoint_dir, "ckpt")
         self.checkpoint = tf.train.Checkpoint(optimizer=self.optimizer,
                                               encoder=self.encoder,
@@ -284,7 +296,7 @@ class Model():
         ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
         ax.yaxis.set_major_locator(ticker.MultipleLocator(1))
 
-        plt.show()
+        # plt.show()
 
     def translate(self, sentence):
         try:

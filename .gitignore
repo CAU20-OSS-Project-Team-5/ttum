@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+
 # C extensions
 *.so
 
@@ -109,6 +111,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+myvenv/
 
 # Spyder project settings
 .spyderproject
@@ -134,10 +137,13 @@ dmypy.json
 settings.json
 
 # Checkpoints for tensorflow models
-training_checkpoints/
+backend/nlp/training_checkpoints/
 
 # PlantUML result text and image files
-result_files/diagrams/*
-result_files/texts/*
-!result_files/diagrams/.gitkeep
-!result_files/texts/.gitkeep
+backend/media/diagrams/*
+backend/media/texts/*
+!backend/media/diagrams/.gitkeep
+!backend/media/texts/.gitkeep
+
+# Unnecessary file from macOS
+.DS_Store

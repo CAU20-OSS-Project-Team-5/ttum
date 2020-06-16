@@ -14,7 +14,7 @@
 import sys, os
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-import plantuml
+from backend.nlp import plantuml
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
