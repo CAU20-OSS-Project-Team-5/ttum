@@ -67,3 +67,6 @@ $ pip install -r requirements.txt       # Get packages using requirements.txt
 #### test.csv
 - 학습되지 않은 영어-PlantUML 데이터
 - 정확도 측정을 위해 사용
+#### 인용한 오픈소스
+- https://github.com/SamuelMarks/python-plantuml
+- Opensource plantuml api for python
