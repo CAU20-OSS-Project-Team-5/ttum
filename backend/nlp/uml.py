@@ -78,7 +78,7 @@ def create_uml_diagram_image(file_name):
 
     # Get uml diagram image file generated from the PlantUML text file
     try:
-        is_successful = plantuml_conn.processes_file(text_file_loc, outfile=files['outfile'])
+        is_successful = plantuml_conn.processes_file(text_file_loc, outfile=files['outfile'], errorfile=files['outfile'])
     except FileNotFoundError as e:
         print("Error: File name \'" + file_name + "\' not found!")
         print(e)
