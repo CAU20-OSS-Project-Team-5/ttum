@@ -448,3 +448,37 @@ Unfolding the phone induces the program starting.,(unfold phone) .> (start progr
 Folding the phone means exit the program.,(fold phone) .> (exit program) : extends
 Folding is finishing.,(fold) .> (finish system) : extends
 User fold the phone to exit the program.,User -- (fold phone) : to exit program
+student obtain student grant from financial institution.,student -- (obtain student grant)
+financial institution grant student to obtain student grant.,financial institution -- (obtain student grant)
+financial institution get involved with obtain student grant.,financial institution -- (obtain student grant)
+student obtain student loan from financial institution.,student -- (obtain student loan)
+financial institution grant student to obtaining student loan.,financial institution -- (obtain student loan)
+financial institution get involved with obtaining student loan.,financial institution -- (obtain student loan)
+student is reimbursed course fees from financial institution .,student -- (reimburse course fees)
+financial institution reimburse course fees to student., financial institution -- (reimburse course fees)
+student pay fees to financial institution.,student -- (pay fees)
+financial institution is paid fees from student., financial institution -- (pay fees)
+student drop out of school., student -- (drop out of school)
+student enroll in seminar., student -- (enroll in semenal)
+student drop seminar., student -- (drop seminar)
+student attend seminar., student -- (attend seminar)
+student finish seminar., student -- (finish seminar)
+grade administrator input student marks., grade administrator -- (input student marks)
+instructor print teaching schedule.,instructor -- (print teaching schedule)
+instructor teach seminar.,instructor -- (teach seminar)
+researcher apply for grant.,researcher -- (apply for grant)
+registrar permit student to drop seminar., registrar -- (drop seminar)
+post office distribute information to students., post office -- (distribute information to students)
+distributing information to students Can distribute schedule.,(distribute schedule) .>(distribute information) : extends
+distributing information to students can be expaded to distribute fee schedule.,(distribute fee schedule).> (distribute information) : extends
+distributing information to students include distributing transcripts.,(distribute transcripts).> (distribute information) : extends
+product manager often define feature.,product manager -- (define feature)
+product manager often define product.,product manager -- (define product)
+define full product means define product., (define full product) --|> (define product)
+define full product is define product., (define full product) --|> (define product)
+define full product is interpreted as define product., (define full product) --|> (define product)
+define trial product means define product., (define trial product) --|> (define product)
+define trial product is interpreted as define product., (define trial product) --|> (define product)
+define trial product is define product., (define trial product) --|> (define product)
+
+
