@@ -39,15 +39,11 @@ $ pip install -r requirements.txt       # Get packages using requirements.txt
 
 Django의 view.py 의 taskCreate(request)에서 입력된 문장을 이미지파일의 url 주소로 변환하여 주면 됨.
 
-
 ### usecase_model.py
 - RNN의 파생 모델인 LSTM 모델이 적용된 Tensorflow model
 - seq2seq 기법 및 교사 강요 사용
 - 현재 생성자를 통해 동작하며, `main.py`에서 호출
 - 입력으로 train.csv를 받아서 LSTM 모델을 학습시킴
-
-### packagelist.txt
-- 아나콘다의 conda install을 위한 패키지 정보들
 
 ### 데이터 파일 (.csv)
 #### train.csv
@@ -58,6 +54,7 @@ Django의 view.py 의 taskCreate(request)에서 입력된 문장을 이미지파
 #### test.csv
 - 학습되지 않은 영어-PlantUML 데이터
 - 정확도 측정을 위해 사용
+
 #### 인용한 오픈소스
 - https://github.com/SamuelMarks/python-plantuml
 - Opensource plantuml api for python
