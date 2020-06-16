@@ -195,7 +195,7 @@ User name is Kim.,User <<Kim>>
 User start the system.,User -- (start system)
 User name Sujan,User <<Sujan>>
 User enters the notice board.,User -- (enter notice board)
-User eats food, pays for food and drink.,User -- (eat)
+User eats food,User -- (eat)
 Customer and clerk check out together.,Customer&Clerk -- (check out) : together
 Waiter receives order.,Waiter -- (receive orders)
 Waiter receives orders.,Waiter -- (receive orders)
