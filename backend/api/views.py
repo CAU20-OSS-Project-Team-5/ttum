@@ -54,7 +54,7 @@ def taskCreate(request):
     hashed_image_file_name = str(hash) + '.png'
     print("Hashed file name: " + hashed_plantuml_file_name)
 
-    uml_handler = UMLHandler(train_epoch=0)
+    uml_handler = UMLHandler(train_epoch=5)
     
     if task._type == "0":
         # Convert paragraph into usecase diagram image
