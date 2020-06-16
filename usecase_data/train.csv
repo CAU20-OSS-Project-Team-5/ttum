@@ -480,5 +480,21 @@ define full product is interpreted as define product., (define full product) --|
 define trial product means define product., (define trial product) --|> (define product)
 define trial product is interpreted as define product., (define trial product) --|> (define product)
 define trial product is define product., (define trial product) --|> (define product)
-
-
+development often generate trial product bundle., development -- (generate trial product bundle)
+development always generate trial product bundle., development -- (generate trial product bundle)
+development almost generate trial product bundle., development -- (generate trial product bundle)
+development often generate runtime installer., development -- (generate runtime installer)
+development can generate runtime installer., development -- (generate runtime installer)
+development can generate branded RUS., development -- (generate branded RUS)
+entitlement manager manage&produce entitlements., entitlement -- (manage&produce entitlements)
+generate product key is expaned from manage&produce entitlements., (generate product key) .> (manage&produce entitlements) : extends
+customer services also concern to manage customers., customer services -- (manage customers)
+customer services product activation with other.,customer services -- (product activation)
+customer products activation at first., customer -- (product activation)
+member login to bank app.,member -- (login)
+login must induce transaction.,(login) .> transaction : include
+technician conduct maintenance., technician -- (maintenance)
+bank request maintenance to technician., bank -- (maintenance)
+technician is requested to repair something from bank., technician -- (repair)
+bank always check balance in system., bank -- (check balance)
+login could cause bad pin., (bad pin) .> (login) : extends
