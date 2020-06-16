@@ -77,6 +77,9 @@ class NLPHandler:
         if s.endswith(" <end> "):
             s = s[:-7]
 
+        if s.endswith("<end> "):
+            s = s[:-6]
+
         if s.startswith("<start> "):
             s = s[8:]
 

@@ -24,7 +24,6 @@ class UMLHandler():
     def convert_into_usecase_uml(self, paragraph, usecase_file_name='usecase_diagram.plantuml'):
         """Convert paragraph into usecase diagram image and save the image in the server
 
-
         :param paragraph: the paragraph to translate into PlantUML usecase diagram image
         :param usecase_file_name: file name of the usecase PlantUML text file
         :return: boolean value of whether the converting process has been successful
