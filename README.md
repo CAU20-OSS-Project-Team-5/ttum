@@ -8,19 +8,39 @@
 <img width="600" alt="ttum_logo_sketch" src="https://user-images.githubusercontent.com/42485462/84044589-bdc92300-a9e2-11ea-8b79-85bcd7e3c76b.png">
 </p>
 
-자연어 처리 및 딥러닝을 이용하여 자연어 문단을 UML 다이어그램으로 변환시켜주는 프로그램
+TTUM is a program that converts sentences in natural language into a UML diagram image, using deep learning.
 
 ## Installation
+- Run:
 ```shell
 $ python -m venv .venv                  # Create virtual environment
 $ .venv/bin/activate                    # or '.venv\Scripts\activate' on Windows
-$ pip install --upgrade pip             # Update pip - or 'python -m pip install --upgrade pip' on Windows
+$ pip install --upgrade pip             # or 'python -m pip install --upgrade pip' on Windows to update pip
 $ pip install -r requirements.txt       # Get packages using requirements.txt
 ```
 
-## Initial Setups
-### Download NLTK Data
-- You need to download **NLTK data** to use the `nlp` module.
+### Frontend (Run on frontend/)
+- Install [npm](https://www.npmjs.com/)
+
+- Run *this* to install react-scripts and axios
+```shell
+$ cd frontend
+$ npm install --save react-scripts # Install react-scripts
+$ npm install --save axios # Install axios
+```
+
+### Backend (Run on backend/)
+- Set up database
+```shell
+$ cd backend
+$ py manage.py makemigrations
+$ py manage.py migrate
+$ sqlite3 db.sqlite3
+$ py manage.py createsuperuser # Create superuser for the server
+```
+
+### Download [NLTK](https://www.nltk.org/) Data
+You need to download **NLTK data** to use the `nlp` module.
 1. You need to *uncomment* `nltk.download('all')` in `NLPHandler.__init__` in `nlp.py` when you run for the first time.
 2. When you run the program with the uncommented line, the program will download NLTK data from the NLTK server.
 3. Then, you can *comment* the line again.
@@ -28,33 +48,41 @@ $ pip install -r requirements.txt       # Get packages using requirements.txt
 ### Create Training Checkpoints
 - In order to use the model to translate natural language to PlantUML text, you need to train the model with the `train.csv`.
 - Give `epoch` parameter of `UMLHandler` an **integer more than 0** at least **once**, to train the model and create checkpoints in `training_checkpoints/`.
+  - We recommend assigning a number bigger than 300 to the `epoch`.
 - Then, you can set `epoch=0` again, so that the program can just restore the checkpoints to translate next time you run it.
 - If there is any change in `train.csv`, you need to train the model again.
 
+## Running the Server
+You need to run both the backend and frontend servers, if you wish to run TTUM on web.
 
-## 파일 및 폴더 설명
-### jupyter 폴더
-- Jupyter notebook 파일들이 담겨있는 폴더
-- Model test 및 학습 용도로 사용하면 됨
+### Backend
+```shell
+$ cd backend
+$ py manage.py runserver 127.0.0.1:8020
+```
 
-Django의 view.py 의 taskCreate(request)에서 입력된 문장을 이미지파일의 url 주소로 변환하여 주면 됨.
+### Frontend
+```shell
+$ cd frontend
+$ npm run start
+```
 
-### usecase_model.py
-- RNN의 파생 모델인 LSTM 모델이 적용된 Tensorflow model
-- seq2seq 기법 및 교사 강요 사용
-- 현재 생성자를 통해 동작하며, `main.py`에서 호출
-- 입력으로 train.csv를 받아서 LSTM 모델을 학습시킴
+## Running Only the Deep Learning Model
+If you wish to run without the server, just run `main.py` in the `backend/nlp/`, which is a short demo of the image creating process.
 
-### 데이터 파일 (.csv)
+## Files and Folders
+### uml_model and usecase_model.py
+- A tensorflow model utilizing seq2seq
+- Receives train.csv as input and trains the model
+
+### Training Data File (.csv)
 #### train.csv
-- Tensorflow를 이용해 학습시킬 데이터가 담긴 csv 파일
-- 이 파일에 영어-PlantUML 데이터를 추가해야 함
-- 오픈소스의 의의가 됨
+- A data file that contains the training data for the model
+- This is a file where English-to-PlantUML data should be added.
+- Please add more quality data!
 
-#### test.csv
-- 학습되지 않은 영어-PlantUML 데이터
-- 정확도 측정을 위해 사용
+## Note
+- We used [python-plantuml](https://github.com/SamuelMarks/python-plantuml) to get access to the PlantUML server using Python!
+  - It's also an open source project on GitHub, so check it out.
 
-#### 인용한 오픈소스
-- https://github.com/SamuelMarks/python-plantuml
-- Opensource plantuml api for python
+- Currently **TTUM** only works for creating usecase diagrams, so please participate in the project.
