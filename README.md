@@ -84,6 +84,9 @@ If you wish to run without the server, just run `main.py` in the `backend/nlp/`,
 - This is a file where English-to-PlantUML data should be added.
 - Please add more quality data!
 
+## Coding Style
+Please follow PEP 8 for Python codes. (4 spaces for indentation!)
+
 ## Note
 - This project works by connecting to the [PlantUML](https://plantuml.com/) server.
 - We used [SamuelMarks/python-plantuml](https://github.com/SamuelMarks/python-plantuml), which is forked from [dougn/python-plantuml](https://github.com/dougn/python-plantuml) to get access to the PlantUML server using Python!
