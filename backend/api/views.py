@@ -47,17 +47,17 @@ def taskCreate(request):
 
     task = Task.objects.last()  # 방금 추가한 데이터를 불러옴
     
-    
-    # Create hash code
-    hash = uuid.uuid4().hex
-    hashed_plantuml_file_name = str(hash) + '.plantuml'
-    hashed_image_file_name = str(hash) + '.png'
-    print("Hashed file name: " + hashed_plantuml_file_name)
-
-    uml_handler = UMLHandler(train_epoch=5)
+    uml_handler = UMLHandler(train_epoch=0)
     
     if task._type == "0":
+        # Create hash code
+        hash = uuid.uuid4().hex
+        hashed_plantuml_file_name = str(hash) + '.plantuml'
+        hashed_image_file_name = str(hash) + '.png'
+        print("Hashed file name: " + hashed_plantuml_file_name)
         # Convert paragraph into usecase diagram image
+
+        print(task.title)
         is_successful = uml_handler.convert_into_usecase_uml(task.title, usecase_file_name=hashed_plantuml_file_name)
         url = os.path.join('.','media','texts',hashed_plantuml_file_name)
         task.title = ""
@@ -65,8 +65,10 @@ def taskCreate(request):
             lines = f.readlines()
             for line in lines:
                 task.title += line
+
         task.image_name = str(hash)
         task.images = os.path.join('..','media','diagrams',hashed_image_file_name)
+        print(task.image_name)
     if task._type == "1":
         print(task.title)
         print(task.image_name)   
@@ -82,7 +84,6 @@ def taskCreate(request):
 
         file_image =  task.image_name + '.png'
         
-
         task.images = os.path.join('..','media','diagrams',file_image)
 
     
@@ -93,7 +94,6 @@ def taskCreate(request):
     if task._type == "0":
         if Task.objects.first():
             task = Task.objects.first()
-
             # Cleanup usecase diagram images and texts from 'media/'
             uml_handler.cleanup_plantuml_files(plantuml_text_file_name=task.image_name)
             task.delete()
@@ -101,7 +101,7 @@ def taskCreate(request):
         if Task.objects.first():
             task = Task.objects.first()
             task.delete()
-
+    
     return Response(serializer.data)
 
 @api_view(['GET'])
