@@ -234,12 +234,13 @@ class App extends React.Component {
               <Paragraph
                 style={{
                   width: 700,
-                  height: 600,
+                  minHeight: 500,
                   border: "3px solid #6495ED",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
+                  resize: "vertical",
                 }}
               >
                 {take.data ? (
