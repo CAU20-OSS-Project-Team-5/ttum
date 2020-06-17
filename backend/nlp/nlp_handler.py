@@ -1,3 +1,5 @@
+import re
+
 import nltk
 import string
 
@@ -91,7 +93,8 @@ class NLPHandler:
         :param translated_sentences: the translated text where the actor text will be extracted
         :return: the list of actor extracted from the translated text
         """
-        temp_list = [t.split(' ') for t in translated_sentences]  # Split each sentence into items of words
+        # Split each sentence into items of words
+        temp_list = [re.findall('\[[^\]]*\]|\([^\)]*\)|\"[^\"]*\"|\S+', s) for s in translated_sentences]
         actor_list = []
 
         for s in temp_list:  # Get each sentence
