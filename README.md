@@ -37,7 +37,6 @@ $ npm install --save axios # Install axios
 $ cd backend
 $ py manage.py makemigrations
 $ py manage.py migrate
-$ sqlite3 db.sqlite3
 $ py manage.py createsuperuser # Create superuser for the server
 ```
 
