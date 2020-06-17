@@ -72,46 +72,11 @@ She pushes the button.,She -- (push button)
 He pushes the button.,He  -- (push button)
 Yang pushes the button.,Yang  -- (push button)
 I push the button.,I  --  (push button)
-I touch two buttons at the same time.,I  -- (touch two buttons) : at the same time
-She touches three buttons respectively.,She -- (touche three buttons) : respectively
 Lee writes a letter.,Lee --  (writes a letter)
 Park make a letter.,Park -- (make a letter)
 User write a letter.,User -- (write a letter)
 Kim saves a written letter.,Kim  -- (save a written letter)
 I save a written letter.,I --  (save a written letter)
-She recalls the stored information one after another.,She --  (recall the stored information) : one after another
-He recalls the stored information one after another.,He -- (recalls the stored information) : one after another
-User recall stored letters one by one.,User  -- (recall stored letters) : one by one
-Lee recalls saved letters step by step.,Lee -- (recall saved letters) : step by step
-Jin calls some saved packages respectively.,Jin -- (call saved packages) : respectively
-Park brings saved files one by one.,Park -- (bring saved files) : one by one
-Yang can open saved files one by one.,Yang  -- (open saved files) : one by one
-Kim can recall stored letters one after another.,Kim --  (recall stored letters) : one after another
-She would recall saved files step by step.,She --  (recall saved files) : step by step
-Hamlet can temporarily save the text he is writing.,Hamlet --  (temporarily save the text) : during writing
-Yang can temporarily store the text he is writing.,Yang --  (temporarily store text) : during writing
-She can temporarily store text she is writing.,She  -- (temporarily store text) : during writing
-Lee can recall the temporarily saved file.,Lee  -- (recall temporarily saved file)
-Jin may recall temporarily saved files.,Jin --  (recall temporarily saved files)
-My daughter can recall files in temporary storage.,My daughter  -- (recall files) : in temporary storage
-He recalls letters in temporary storage.,He -- (recall letters) : from temporary storage
-He can receive letters from other users.,He --  (receive letters) : from other users
-User should log in to see what other users gave to her.,User -- (login) : to see what user received)
-User have to log in to watch that other users gave letters to user.,User -- (login) : to watch letters that are given
-Lee logs in to see what he received from other users.,Lee -- (login) : to see what user received
-Kim log in to see the letters he received.,Kim --  (login) : to see letters
-User logs in to see what he received.,User -- (login) : to see what user received
-User logs in to see what he received from others.,User -- (login) : to see what user received
-Kimhyunsoo sends other user a love letter.,Kimhyunsoo -- (send love letter)
-Zion have to enter the password before sending letters.,Zion -- (enter password) : to send letters
-All have to log in to use the system.,All -- (login) : to use system
-All can send messages to other users.,All -- (send messages)
-All can receive letters from other users.,All -- (receive letters)
-All can recall saved file from cloud.,All -- (recall saved file) : from cloud
-All can recall saved file from storage.,All -- (recall saved file) : from storage
-All can temporarily save messages in temporary storage.,All -- (temporarily save messages) : in temporary storage
-Professor needs public certificate to log in.,Professor -- (login) : need certificate
-Students needs public certificate to log in.,Students -- (login) : need certificate
 Professor gives assignments.,Professor -- (give assignments)
 Professors give assignments.,Professor -- (give assignments)
 Professors can give assignments.,Professor -- (give assignments)
@@ -190,7 +155,6 @@ Sales representative quote for order.,Sales representative - (Quotation)
 quote can discount.,(quote) .> (discount) : extends
 quote extends discount.,(quote) .> (discount) : extends
 quote require check the customer information.,(quote) .> (check the customer) : include
-sales representative refer to a product classification.,sales representative -- (refer) : a product classification
 User name is Kim.,User <<Kim>>
 User start the system.,User -- (start system)
 User name Sujan,User <<Sujan>>
@@ -258,25 +222,6 @@ teaching staff inherits member.,teaching staff --|> member
 Non-teaching staff also can be member.,Non-teaching staff --|> member
 Non-teaching staff inherits member.,Non-teaching staff --|> member
 User can select one of many buttons.,User -- (select one button)
-Button1 means registration.,(pushing button1) << registration >>
-Pushing button32 means registration.,(pushing button32) << registration >>
-Touching button1 means register.,(pushing button1) << registration >>
-Select button for next step.,User -- (select button) : for next step
-User have to make choice to go next step.,User -- (make choice) : to go next step
-User have to choose one to go next step.,User -- (choose one) : to go next step
-User must select one of them.,User -- (select one)
-User may choose one for next step.,User -- (choose one) : for next step
-User have to click for next stage.,User -- (click) : for next stage
-User can't use system if there's any crime report.,User -- (use system) : if there's any crime report
-User can use item if user level under 10.,User -- (use item) : if user level under 10
-Item can't be used if user level is over 10.,User -- (use item) : if user level under 10
-User can't use item if his level is over 20.,User -- (use item) : if user level under 20
-User can't use item if user level over 30.,User -- (use item) : if user level under 30
-Item can be used if user level is over 40.,User -- (use item) : if user level over 40
-Item can be utilized when user's level exceeds 50.,User -- (utilize item) : when level exceeds 50
-User can breed pet when user's level exceeds 70.,User -- (breed pet) : when level exceeds 70
-User can't breed pet until he exceeds level 80.,User -- (breed pet) : when level exceeds 80
-User can't be a pet owner until level 100.,User -- (breed pet) : when level exceeds 100
 Administrator can make use of all items.,Administrator -- (use all item)
 User whose level is over 30 can talk.,User -- ( talk ) : when level exceeds 30
 User level under 40 can't chat.,User -- ( chat ) : when level exceeds 40
@@ -285,21 +230,6 @@ User could make use of item.,User -- (use item)
 User may use items.,User -- (use item)
 User could make use of items.,User -- (use item)
 User should utilize items on complex map.,User -- (use item) : on complex map
-Users could make items when their level goes over 100.,User -- (make items) : when level goes over 100
-"If user's level exceeds 100, an item can be created by user.",User -- (create item) : when level exceeds 100
-User can wear equipment when over level 10.,User -- (wear equipment) : when level over 10
-User can't wear equipment until level 10.,User -- (wear equipment) : when level exceeds 10
-User can wear equipment as soon as user reach level 10.,User -- (wear equipment) : when level reaches 10
-User can equip as soon as user reach level 10.,User -- (equip) : when level reaches 10
-"If user level is over 100, user can make item.",User -- (make item) : when level exceeds 100
-Item can be created by user when user's level exceeds 100.,User -- (create item) : when level exceeds 100
-Item can be created when user's level exceeds 100.,User -- (create item) : when level exceeds 100
-Item can be created by user only if when user's level exceeds 900.,User -- (create item) : when level exceeds 900
-User must have an account number to enter system.,User -- (enter system) : have an account number
-User should got an account number to enter system.,User  --  (enter system) : got an account
-Button2 is for payment.,(choose Button2) << payment >>
-Button27 is for downloading files.,(choose button27) <<downloading files >>
-Button32 means closing side bar.,(choose button32) << closing side bar >>
 Touching button32 means leaving system.,(touch button32) .> (leaving system) :extends
 Finger movements means skipping.,(move fingers) .> (skip) : extends
 Finger movements means going to next step.,(move fingers) .>(go to next step) :extends
@@ -310,42 +240,16 @@ User widen two fingers to zoom in.,User  --  (widen two fingers) : to zoom in
 "When user want to zoom in the screen, spread two fingers.",(spread two fingers) .> (zoom in) : extends
 "When user want to zoom in the screen, user widen two fingers.",(widen two fingers) .> (zoom in) : extends
 "When user want to zoom in the screen, user spread two fingers.",(spread two fingers) .> (zoom in) : extends
-User may spread two fingers to zoom in.,User --  (spread two fingers) : to zoom in
-User spread 2 fingers to zoom in display.,User --  (spread two fingers) : to zoom in display
-Narrowing two fingers means zooming out.,(narrow two fingers) .> (zoom out) : extends
-User narrow two fingers to zoom out.,User --  (narrow two fingers) : to zoom out
-"When user want to zoom out, user narrow two fingers.",(narrow two fingers) .> (zoom out) : extends
-User who want to zoom out have their fingers narrowed.,User --  (narrow fingers) : to zoom out
-The user close up his finger because he wanted zoom out.,User --  ( close up fingers) : to zoom out
-User want to zoom out so the user have user's fingers closed up.,User --  (close up fingers) : to zoom out
-User close up his fingers when he want his screen zoom out.,User --  (close up fingers) : to zoom out
-User narrowed 2 fingers so that he zoom out his screen.,User --  (narrowed two fingers) : to zoom out screen
-User swipe three fingers to the right to display previous screen.,User --  (swipe three fingers) : to the right to display previous screen
-User swipe three fingers to the right to go back to previous.,User --  (swipe three fingers) : to the right to go back previous
-User swipe three fingers to right to return back.,User --  (swipe three fingers) : to the right to return back
-"When user need return to previous, user swipe three fingers.",(swipe three fingers) .> (return to previous) : extends
-User can press the button long to hold choice.,User --  (press button long) : to hold choice
 Long pressing button means hold.,(long press button) .> (hold) : extends
-"When user need hold, user press button long.".,(long press button) .> (hold) : extends
-"When user unfold laptop, operating system starts.".,(unfold laptop) .> (start OS) : extends
+"When user need hold, user press button long..",(long press button) .> (hold) : extends
+"When user unfold laptop, operating system starts..",(unfold laptop) .> (start OS) : extends
 Unfolding laptop means starting OS.,(unfold laptop) .> (start OS) : extends
 Swiping up the screen means not selecting.,(swipe up screen) .> (not selecting) : extends
-"When user don't want to select, user may swipe up the screen.".,(swipe up screen) .> (not selecting) : extends
-"When user don't want to make choice, user could swipe up the screen.".,(swipe up screen) .> (not selecting) : extends
-User who do not want to make a choice swipe up the screen.,User -- (swipe up screen) : don't want to make a choice
-"When user don't want to choose, user could swipe the display upside.".,(swipe up screen) .> (not selecting) : extends
-User may swipe up the display whenever he don't want to make a choice.,User -- (swipe up screen) : not wanting to make a choice
-User can swipe the screen up if he don't want to select one.,User --  (swipe up screen) : don't want to select one
+"When user don't want to select, user may swipe up the screen..",(swipe up screen) .> (not selecting) : extends
+"When user don't want to make choice, user could swipe up the screen..",(swipe up screen) .> (not selecting) : extends
 Swiping down the screen means choosing.,(swipe down screen) .> (choosing) : extends
-"When user want to choose, user may swipe down the screen.".,(swipe down screen) .> (choosing) : extends
-"When user want to make choice, user could swipe the screen down.".,(swipe down screen) .> (choosing) : extends
-User swipe down the screen when he want to choose.,User -- (swipe down screen) :when want to choose
-User may swipe the display down if he want to make choice.,User -- (swipe down screen) :when want to make choice
-User have to touch at the right timing for score.,User -- (touch at right timing) : for score
-User touch the screen twice in succession to turn screen on.,User -- (touch screen twice in succession) :to turn screen on
-Touching the screen twice in succession means turning on the screen.,(touch screen twice in succession) .> (turn on the screen) : extends
-Touching the screen twice in succession can be translated into turning on the screen.,(touch screen twice in succession) .> (turn on the screen) : extends
-Touching the screen twice in succession is equal to turning on the screen.,(touch screen twice in succession) .> (turn on the screen) : extends
+"When user want to choose, user may swipe down the screen..",(swipe down screen) .> (choosing) : extends
+"When user want to make choice, user could swipe the screen down..",(swipe down screen) .> (choosing) : extends
 Item is created by shaking phone.,(shake phone) .> (create item) : extends
 Shaking phone means creating item.,(shake phone) .> (create item) : extends
 Shaking phone provokes birth of item.,(shake phone) .> (create item) : extends
@@ -369,69 +273,11 @@ old customer is also customer., old customer --|> customer
 old customer inherits customer., old customer --|> customer
 New customer is also customer., New customer --|> customer
 New customer inherits custoemr., New customer --|> customer
-New customer makes new customer offer., New customer -- (makes new customer offer)
-making new customer offer requires create new customer., (making new customer offer) .> (create new customer) : include
-creating new customer is needed to make new customer offer., (creating new customer) <. (make new customer offer) : include
-making new customer offer is another version of make offer., (making new customer offer) --|> (make offer)
-making new customer offer is one of the making offer., (making new customer offer) --|> (making offer)
-making payment arrangement demands making offer., (making payment arrangement) .> (making offer) : include
-making offer must be done before making payment arrangement., (making offer) <. (making payment arrangement) : include
-making new customer offer need creating new customer., (making new customer) .> (creating new customer) : include
-function to make old customer offer could have function to update customer information., (update customer information) .> (make old customer offer) : extends
-Player can take match up with others., Player -- (take match up) : with others
- Player can send confrontation request to another player., Player -- (send confrontation request) : to another player
-Player can send match requests to other player., Player -- (send match request) : to other player
-Player send match request anytime., Player -- (send match request) : anytime
-Player can either accept or reject the showdown., Player -- (accept or reject showdown)
-Player accept or reject the match request., Player -- (accept or reject match request)
-Player can reject confrontation request., Player -- (reject confrontation request)
-Players can observe matches from other players., Player -- (observe match)
-Wearing AirPods causes the system to start.,(Wear Airpods) .> (start system) : extends
-Wearing AirPods induces the starting of program.,(Wear Airpods) .> (start system) : extends
-The system freezes when AirPods is removed from ears.,(remove AirPods from ears) .> ( freeze system ) : extends
-Removing AirPods from ears means system freezing.,(remove AirPods from ears) .> ( freeze system ) : extends
-Press and hold the AirPods button to activate the noise canceling function.,(press and hold AirPods button) .> ( activate noise canceling) : extends
-Pressing and holding AirPods button means activating noise canceling function.,(press and hold AirPods button) .> ( activate noise canceling) : extends
-Pressing and holding Airpods button arouses noise canceling function.,(press and hold AirPods button) .> ( activate noise canceling) : extends
-Noise canceling function can be activated by pressing AirPods button.,(press and hold AirPods button) .> ( activate noise canceling) : extends
-Player cannot play multiple games at the same time., Player -- (play game) : one at a time
-Player can't make progress of multiple matches at the same time., Player -- (make progress of game) : one at a time
-Player can play only one match at the same time., Player -- (play match) : only one at a time
-Pressing Exit button means losing.,(press exit button) .> (lose game) : extends
-User can post on the bulletin board., User -- (post on the bulletin board)
-The user can delete the post., User -- (delete the post)
-The bulletin board is maintained by the operator., Operator -- ( maintain bulletin board )
-The operator can delete posts without the consent of the publisher., Operator -- ( delete post ) : without publisher's consent
-The author of the deleted post is notified of the deletion of the post.,System -- ( notify deletion of post ) : to author of post
-The author of the article may mark a protest against deletion., User -- ( mark a protest against deletion )
-Protest can be rejected by the operator., Operator -- ( reject protest )
-The operator may accept the protest., Operator -- ( accept protest )
-User will be warned if user's post is deleted.,(delete post) .> (send warning to user)
-User cannot use the system if he receives three or more warnings.,(receives warning) .> (use system) : if warning under 3 times
 User can order delivery.,User  --  (order delivery)
 User can place a delivery order.,User  --  (order delivery)
 User can cancel the delivery order.,User  --  (cancel delivery order)
 Delivery order can be canceled.,User  --  (cancel delivery order)
-User must enter the address to be delivered.,User  --  (enter address) : to be delivered
-User have to input the address to be delivered.,User  --  ( address input ) : to be delivered
-Delivery needs address input to be approved.,User  --  ( address input ) : to be approved
-User presses the delivery completion button.,User  --  ( press delivery completion button )
-User press the delivery completion button.,User  --  ( press delivery completion button )
-Delivery is not started until the user completes the payment.,(start delivery)  .> (complete payment) : includes
-User can start video.,User  --  ( start video )
-User can play the video.,User  --  ( play video )
-User can restart video.,User  --  ( restart video )
-Touching button means video stop., ( touching button ) .> ( stop video ) : extends
-User can touches button to stop the video.,User -- (touch button) : to stop video
-Pressing button pauses the video.,( pressing button ) .> ( stop video ) : extends
-Touching button means pausing video.,( touching button ) .> ( stop video ) : extends
-User can pause video by touching button.,User -- (pause video) : by touching button
-User can stop video by touching button.,User -- (stop video) : by touching button
-User can share video link with sns.,User -- (share video link) : with sns
 User can share video link to others.,User -- (share video link)
-User increases volume by buttons.,User -- (increase volume) : by button
-User increases volume using buttons.,User -- (increase volume) : using button
-User touch and drag to select a sentence.,User -- (touch and drag) : to select sentence
 Touch and drag to select multiple words.,( touch and drag ) .> ( select multiple words ) : extends
 User can select multiple words.,User -- (select multiple words)
 Selecting multiple words can be done by touching and dragging.,(touch and drag) .> (select multiple words) : extends
@@ -455,46 +301,30 @@ student obtain student loan from financial institution.,student -- (obtain stude
 financial institution grant student to obtaining student loan.,financial institution -- (obtain student loan)
 financial institution get involved with obtaining student loan.,financial institution -- (obtain student loan)
 student is reimbursed course fees from financial institution .,student -- (reimburse course fees)
-financial institution reimburse course fees to student., financial institution -- (reimburse course fees)
+financial institution reimburse course fees to student.,financial institution -- (reimburse course fees)
 student pay fees to financial institution.,student -- (pay fees)
-financial institution is paid fees from student., financial institution -- (pay fees)
-student drop out of school., student -- (drop out of school)
-student enroll in seminar., student -- (enroll in semenal)
-student drop seminar., student -- (drop seminar)
-student attend seminar., student -- (attend seminar)
-student finish seminar., student -- (finish seminar)
-grade administrator input student marks., grade administrator -- (input student marks)
+financial institution is paid fees from student.,financial institution -- (pay fees)
+student drop out of school.,student -- (drop out of school)
+student enroll in seminar.,student -- (enroll in semenal)
+student drop seminar.,student -- (drop seminar)
+student attend seminar.,student -- (attend seminar)
+student finish seminar.,student -- (finish seminar)
+grade administrator input student marks.,grade administrator -- (input student marks)
 instructor print teaching schedule.,instructor -- (print teaching schedule)
 instructor teach seminar.,instructor -- (teach seminar)
 researcher apply for grant.,researcher -- (apply for grant)
-registrar permit student to drop seminar., registrar -- (drop seminar)
-post office distribute information to students., post office -- (distribute information to students)
+registrar permit student to drop seminar.,registrar -- (drop seminar)
+post office distribute information to students.,post office -- (distribute information to students)
 distributing information to students Can distribute schedule.,(distribute schedule) .>(distribute information) : extends
 distributing information to students can be expaded to distribute fee schedule.,(distribute fee schedule).> (distribute information) : extends
 distributing information to students include distributing transcripts.,(distribute transcripts).> (distribute information) : extends
 product manager often define feature.,product manager -- (define feature)
 product manager often define product.,product manager -- (define product)
-define full product means define product., (define full product) .> (define product) : extends
-define full product is define product., (define full product) --|> (define product)
-define full product is interpreted as define product., (define full product) .> (define product) :extends
-define trial product means define product., (define trial product) .> (define product) : extends
-define trial product is interpreted as define product., (define trial product) .> (define product) : extends
-define trial product is define product., (define trial product) --|> (define product)
-development often generate trial product bundle., development -- (generate trial product bundle)
-development always generate trial product bundle., development -- (generate trial product bundle)
-development almost generate trial product bundle., development -- (generate trial product bundle)
-development often generate runtime installer., development -- (generate runtime installer)
-development can generate runtime installer., development -- (generate runtime installer)
-development can generate branded RUS., development -- (generate branded RUS)
-entitlement manager manage&produce entitlements., entitlement -- (manage&produce entitlements)
-generate product key is expaned from manage&produce entitlements., (generate product key) .> (manage&produce entitlements) : extends
-customer services also concern to manage customers., customer services -- (manage customers)
-customer services product activation with other.,customer services -- (product activation)
-customer products activation at first., customer -- (product activation)
+customer products activation at first.,customer -- (product activation)
 member login to bank app.,member -- (login)
 login must induce transaction.,(login) .> transaction : include
-technician conduct maintenance., technician -- (maintenance)
-bank request maintenance to technician., bank -- (maintenance)
-technician is requested to repair something from bank., technician -- (repair)
-bank always check balance in system., bank -- (check balance)
-login could cause bad pin., (cause bad pin) .> (login) : extends
+technician conduct maintenance.,technician -- (maintenance)
+bank request maintenance to technician.,bank -- (maintenance)
+technician is requested to repair something from bank.,technician -- (repair)
+bank always check balance in system.,bank -- (check balance)
+login could cause bad pin.,(cause bad pin) .> (login) : extends
