@@ -57,7 +57,6 @@ def taskCreate(request):
         print("Hashed file name: " + hashed_plantuml_file_name)
         # Convert paragraph into usecase diagram image
 
-        print(task.title)
         is_successful = uml_handler.convert_into_usecase_uml(task.title, usecase_file_name=hashed_plantuml_file_name)
         url = os.path.join('.','media','texts',hashed_plantuml_file_name)
         task.title = ""
@@ -68,10 +67,7 @@ def taskCreate(request):
 
         task.image_name = str(hash)
         task.images = os.path.join('..','media','diagrams',hashed_image_file_name)
-        print(task.image_name)
     if task._type == "1":
-        print(task.title)
-        print(task.image_name)   
         # Update the usecase diagram image with user-updated PlantUML text
         text = open(os.path.join('.','media','texts', task.image_name + '.plantuml'), 'w')
         

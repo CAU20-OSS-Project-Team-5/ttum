@@ -20,7 +20,7 @@ class App extends React.Component {
       id: null,
       title: "",
       image_name: "",
-      _type:"",
+      _type: "",
     },
     description:
       "this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. ",
@@ -35,14 +35,14 @@ class App extends React.Component {
 
   setSState = () => {
     const { take } = this.state;
-   
+
     take.data ? (
       this.setState({
         image: take.data[0].image_name,
       })
     ) : (
-      this.setState({image: "0"})  
-    )
+        this.setState({ image: "0" })
+      )
     console.log(this.state.image)
 
   }
@@ -53,26 +53,25 @@ class App extends React.Component {
       console.log("backserver data : " + data);
       this.setState({
         take: data,
-        //image: this.state.data.image_name
       });
     });
-    
+
     this.setSState();
   };
 
-  
+
 
   handleBackSubmit = async (event) => {
     event.preventDefault();
     const form_data = new FormData();
     form_data.append("title", event.target.content.value);
     console.log("submit:" + event.target.content.value)
-    if(event.target.content.value.substring(0,9) == "@startuml") {
+    if (event.target.content.value.substring(0, 9) == "@startuml") {
       form_data.append("_type", "1");  // plantUML to image
       form_data.append("image_name", this.state.image)
     } else {
       form_data.append("_type", "0");  // natural Language to image
-      form_data.append("image_name", "" )
+      form_data.append("image_name", "")
     }
 
     var url = "http://127.0.0.1:8020/api/task-create/";
@@ -141,15 +140,17 @@ class App extends React.Component {
             }}
           >
             <Title style={{ color: "#00008B" }}>Text Input</Title>
-            <Form style={{ display: "flex",
+            <Form style={{
+              display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center", }}>
+              justifyContent: "center",
+            }}>
               <Form.Item>
                 <textArea
                   name="content"
                   placeholder="Enter sentences, line by line, to create UML image"
-                  
+
                   style={{
                     marginLeft: "10px",
                     minHeight: "40vh",
@@ -157,14 +158,12 @@ class App extends React.Component {
                     border: "3px solid #6495ED",
                     width: 500,
                     fontSize: 18,
-                    
                   }}
-                  
                 />
               </Form.Item>
               <Button
-                style={{ 
-                  marginRight: "10px", 
+                style={{
+                  marginRight: "10px",
                   marginBottom: "10px",
                   width: 120,
                   height: 40,
@@ -175,16 +174,16 @@ class App extends React.Component {
                 Convert
               </Button>
             </Form>
-           
-              
-            
+
             <Title style={{ color: "#00008B" }}>PlantUML Text</Title>
-            <Form style={{ display: "flex",
+            <Form style={{
+              display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center", }}>
+              justifyContent: "center",
+            }}>
               <Form.Item>
-                
+
                 <textArea
                   name="content"
                   style={{
@@ -195,7 +194,7 @@ class App extends React.Component {
                     width: 500,
                     fontSize: 18,
                   }}
-                  
+
                 >
                   {
                     take.data ? (
@@ -204,14 +203,13 @@ class App extends React.Component {
                         null
                       )
                   }
-                  
                 </textArea>
               </Form.Item>
               <Button
-                style={{ 
-                  marginRight: "10px", 
+                style={{
+                  marginRight: "10px",
                   marginBottom: "10px",
-                  height: 40, 
+                  height: 40,
                 }}
                 type="primary"
                 htmlType="submit"
@@ -219,7 +217,7 @@ class App extends React.Component {
                 convert from plantUML
               </Button>
             </Form>
-            
+
           </Col>
 
           <Col span={12}>
