@@ -152,7 +152,7 @@ class App extends React.Component {
                   placeholder="Enter sentences, line by line, to create UML image"
 
                   style={{
-                    marginLeft: "10px",
+                   //marginLeft: "10px",
                     minHeight: "40vh",
                     minWidth: "45vh",
                     border: "3px solid #6495ED",
@@ -214,7 +214,7 @@ class App extends React.Component {
                 type="primary"
                 htmlType="submit"
               >
-                convert from plantUML
+                convert from PlantUML
               </Button>
             </Form>
 
