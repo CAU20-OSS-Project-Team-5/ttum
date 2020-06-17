@@ -4,11 +4,10 @@ import axios from "axios";
 
 import { Image } from "react-bootstrap";
 import { Typography, Row, Col, Input, Button, Menu, Form } from "antd";
-import logo from "./black_logo.png";
-import background from "./Background.jpeg";
+import logo from "./ttum_logo.png";
+
 import django_logo from "./django.png";
 import react_logo from "./react.png";
-import { ArrowRightOutlined } from "@ant-design/icons";
 const { TextArea } = Input;
 const { Title, Paragraph } = Typography;
 
@@ -16,11 +15,12 @@ class App extends React.Component {
   state = {
     take: [],
     check: 0,
+    image: "",
     activeItem: {
       id: null,
       title: "",
       image_name: "",
-      _type:"",
+      _type: "",
     },
     description:
       "this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. this is test uml diagram. and you might get also long long descriptions. ",
@@ -33,6 +33,20 @@ class App extends React.Component {
     } else return false;
   }
 
+  setSState = () => {
+    const { take } = this.state;
+
+    take.data ? (
+      this.setState({
+        image: take.data[0].image_name,
+      })
+    ) : (
+        this.setState({ image: "0" })
+      )
+    console.log(this.state.image)
+
+  }
+
   callBackServer = async () => {
     let url = "http://127.0.0.1:8020/api/task-list/";
     await axios.get(url).then((data) => {
@@ -41,21 +55,23 @@ class App extends React.Component {
         take: data,
       });
     });
-    
-    console.log("whattheFuck:" ,this.state.take);
+
+    this.setSState();
   };
+
+
 
   handleBackSubmit = async (event) => {
     event.preventDefault();
     const form_data = new FormData();
     form_data.append("title", event.target.content.value);
     console.log("submit:" + event.target.content.value)
-    if(event.target.content.value.substring(0,9) == "@startuml") {
+    if (event.target.content.value.substring(0, 9) == "@startuml") {
       form_data.append("_type", "1");  // plantUML to image
-      form_data.append("image_name", this.state.images )
-      console.log("12345678910")
+      form_data.append("image_name", this.state.image)
     } else {
       form_data.append("_type", "0");  // natural Language to image
+      form_data.append("image_name", "")
     }
 
     var url = "http://127.0.0.1:8020/api/task-create/";
@@ -91,7 +107,7 @@ class App extends React.Component {
             minHeight: "5vh",
           }}
         >
-          <Image src={logo} style={{ maxHeight: "5vh" }} />
+          <Image src={logo} style={{ maxHeight: "8vh" }} />
           <Menu
             theme="light"
             mode="horizontal"
@@ -124,66 +140,84 @@ class App extends React.Component {
             }}
           >
             <Title style={{ color: "#00008B" }}>Text Input</Title>
-            <Form style={{ align: "middle", justify: "center", }}>
+            <Form style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
               <Form.Item>
                 <textArea
                   name="content"
-                  placeholder="Enter a title for your art"
+                  placeholder="Enter sentences, line by line, to create UML image"
+
                   style={{
                     marginLeft: "10px",
                     minHeight: "40vh",
                     minWidth: "45vh",
+                    border: "3px solid #6495ED",
+                    width: 500,
+                    fontSize: 18,
                   }}
                 />
               </Form.Item>
               <Button
-                style={{ marginRight: "10px", marginBottom: "10px" }}
+                style={{
+                  marginRight: "10px",
+                  marginBottom: "10px",
+                  width: 120,
+                  height: 40,
+                }}
                 type="primary"
                 htmlType="submit"
               >
                 Convert
               </Button>
             </Form>
-            {
-                    take.data ? (
-                      
-                      this.state.images = take.data[0].image_name
-                    ) : (
-                        null
-                      )
-            }
-            <Form style={{ align: "middle", justify: "center", }}>
+
+            <Title style={{ color: "#00008B" }}>PlantUML Text</Title>
+            <Form style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
               <Form.Item>
-                <Title style={{ color: "#00008B" }}>plantUML</Title>
+
                 <textArea
                   name="content"
                   style={{
                     marginLeft: "10px",
                     minHeight: "40vh",
                     minWidth: "45vh",
+                    border: "3px solid #6495ED",
+                    width: 500,
+                    fontSize: 18,
                   }}
-                  
+
                 >
                   {
                     take.data ? (
                       take.data[0].title
-                      
                     ) : (
                         null
                       )
                   }
-                  
                 </textArea>
               </Form.Item>
               <Button
-                style={{ marginRight: "10px", marginBottom: "10px" }}
+                style={{
+                  marginRight: "10px",
+                  marginBottom: "10px",
+                  height: 40,
+                }}
                 type="primary"
                 htmlType="submit"
               >
                 convert from plantUML
               </Button>
             </Form>
-            
+
           </Col>
 
           <Col span={12}>
@@ -199,23 +233,25 @@ class App extends React.Component {
               <Title style={{ color: "#00008B" }}>UML Diagram</Title>
               <Paragraph
                 style={{
+                  width: 700,
+                  height: 600,
+                  border: "3px solid #6495ED",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  justifyContent: "column",
-                  marginTop: "10px",
-                  border: "3px solid #6495ED",
-
+                  justifyContent: "center",
                 }}
               >
                 {take.data ? (
                   <Image
                     src={"http://127.0.0.1:8020" + take.data[0].images + "/?time=" + new Date()}
-                    style={{ width: "500px" }}
+                    style={{
+                      width: 500,
+                    }}
                     key={take.data[0].id}
                   />
                 ) : (
-                    <h>when null</h>
+                    <h></h>
                   )}
                 {}
               </Paragraph>

@@ -49,17 +49,17 @@ def taskCreate(request):
         serializer.save()
 
     task = Task.objects.last()  # 방금 추가한 데이터를 불러옴
-
-    # Create hash code
-    hash = uuid.uuid4().hex
-    hashed_plantuml_file_name = str(hash) + '.plantuml'
-    hashed_image_file_name = str(hash) + '.png'
-    print("Hashed file name: " + hashed_plantuml_file_name)
-
+    
     uml_handler = UMLHandler(train_epoch=0)
-
+    
     if task._type == "0":
+        # Create hash code
+        hash = uuid.uuid4().hex
+        hashed_plantuml_file_name = str(hash) + '.plantuml'
+        hashed_image_file_name = str(hash) + '.png'
+        print("Hashed file name: " + hashed_plantuml_file_name)
         # Convert paragraph into usecase diagram image
+
         is_successful = uml_handler.convert_into_usecase_uml(task.title, usecase_file_name=hashed_plantuml_file_name)
         url = os.path.join('.', 'media', 'texts', hashed_plantuml_file_name)
         task.title = ""
@@ -67,11 +67,10 @@ def taskCreate(request):
             lines = f.readlines()
             for line in lines:
                 task.title += line
+
         task.image_name = str(hash)
         task.images = os.path.join('..', 'media', 'diagrams', hashed_image_file_name)
     if task._type == "1":
-        print(task.title)
-        print(task.image_name)
         # Update the usecase diagram image with user-updated PlantUML text
         text = open(os.path.join('.', 'media', 'texts', task.image_name + '.plantuml'), 'w')
 
@@ -82,9 +81,9 @@ def taskCreate(request):
 
         is_successful = uml_handler.update_usecase_uml(usecase_file_name=file_plantuml)
 
-        file_image = task.image_name + '.png'
-
-        task.images = os.path.join('..', 'media', 'diagrams', file_image)
+        file_image =  task.image_name + '.png'
+        
+        task.images = os.path.join('..','media','diagrams',file_image)
 
     print("Done updating the image with the new PlantUML text file.")
 
@@ -93,7 +92,6 @@ def taskCreate(request):
     if task._type == "0":
         if Task.objects.first():
             task = Task.objects.first()
-
             # Cleanup usecase diagram images and texts from 'media/'
             uml_handler.cleanup_plantuml_files(plantuml_text_file_name=task.image_name)
             task.delete()
@@ -101,7 +99,7 @@ def taskCreate(request):
         if Task.objects.first():
             task = Task.objects.first()
             task.delete()
-
+    
     return Response(serializer.data)
 
 
