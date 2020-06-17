@@ -22,9 +22,9 @@ $ pip install -r requirements.txt       # Get packages using requirements.txt
 ```
 
 ### Frontend (Run on frontend/)
-- Install [npm](https://www.npmjs.com/)
+- Install [npm](https://www.npmjs.com/).
 
-- Run *this* to install react-scripts and axios
+- Run *this* to install react-scripts and axios.
 ```shell
 $ cd frontend
 $ npm install --save react-scripts # Install react-scripts
@@ -32,6 +32,7 @@ $ npm install --save axios # Install axios
 ```
 
 ### Backend (Run on backend/)
+- Remove files other than `__init__.py` from `ttum/backend/api/migrations/`.
 - Set up database
 ```shell
 $ cd backend
@@ -39,6 +40,7 @@ $ py manage.py makemigrations
 $ py manage.py migrate
 $ py manage.py createsuperuser # Create superuser for the server
 ```
+- Create and save any value to `title`, `image_name`, `_type` to a row in `Task` table in the SQLite database on `localhost:8020/admin`.
 
 ### Download [NLTK](https://www.nltk.org/) Data
 You need to download **NLTK data** to use the `nlp` module.
@@ -74,7 +76,7 @@ If you wish to run without the server, just run `main.py` in the `backend/nlp/`,
 ## Files and Folders
 ### uml_model and usecase_model.py
 - A tensorflow model utilizing **seq2seq**
-- Receives `train.csv` as input and trains the model
+- Receives `train.csv` as input and trains the model.
 
 ### Training Data File (.csv)
 #### train.csv
