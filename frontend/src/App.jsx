@@ -4,7 +4,7 @@ import axios from "axios";
 
 import { Image } from "react-bootstrap";
 import { Typography, Row, Col, Input, Button, Menu, Form } from "antd";
-import logo from "./black_logo.png";
+import logo from "./ttum_logo.png";
 
 import django_logo from "./django.png";
 import react_logo from "./react.png";
@@ -108,7 +108,7 @@ class App extends React.Component {
             minHeight: "5vh",
           }}
         >
-          <Image src={logo} style={{ maxHeight: "5vh" }} />
+          <Image src={logo} style={{ maxHeight: "8vh" }} />
           <Menu
             theme="light"
             mode="horizontal"
