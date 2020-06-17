@@ -3,12 +3,14 @@
 <img width="300" alt="ttum_logo" src="https://user-images.githubusercontent.com/42485462/84795485-8554c500-b032-11ea-80b8-1d882ea9cc3c.png">
 </p>
 
+
 ## What It Does
 <p align="center">
 <img width="600" alt="ttum_logo_sketch" src="https://user-images.githubusercontent.com/42485462/84044589-bdc92300-a9e2-11ea-8b79-85bcd7e3c76b.png">
 </p>
 
 TTUM is a program that converts sentences in natural language into a UML diagram image, using deep learning.
+
 
 ## Installation
 - Run:
@@ -72,8 +74,8 @@ If you wish to run without the server, just run `main.py` in the `backend/nlp/`,
 
 ## Files and Folders
 ### uml_model and usecase_model.py
-- A tensorflow model utilizing seq2seq
-- Receives train.csv as input and trains the model
+- A tensorflow model utilizing **seq2seq**
+- Receives `train.csv` as input and trains the model
 
 ### Training Data File (.csv)
 #### train.csv
@@ -82,7 +84,8 @@ If you wish to run without the server, just run `main.py` in the `backend/nlp/`,
 - Please add more quality data!
 
 ## Note
-- We used [python-plantuml](https://github.com/SamuelMarks/python-plantuml) to get access to the PlantUML server using Python!
-  - It's also an open source project on GitHub, so check it out.
+- This project works by connecting to the [PlantUML](https://plantuml.com/) server.
+- We used [SamuelMarks/python-plantuml](https://github.com/SamuelMarks/python-plantuml), which is forked from [dougn/python-plantuml](https://github.com/dougn/python-plantuml) to get access to the PlantUML server using Python!
+- These are all open source projects on GitHub, so check them out!
 
 - Currently **TTUM** only works for creating usecase diagrams, so please participate in the project.
