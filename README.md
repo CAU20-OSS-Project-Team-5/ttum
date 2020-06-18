@@ -40,6 +40,7 @@ $ py manage.py makemigrations
 $ py manage.py migrate
 $ py manage.py createsuperuser # Create superuser for the server
 ```
+- 
 - Create and save any value to `title`, `image_name`, `_type` to a row in `Task` table in the SQLite database on `localhost:8020/admin`.
 
 ### Download [NLTK](https://www.nltk.org/) Data
